@@ -1,0 +1,34 @@
+{
+  "name": "mall-cms-vue3-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch src -e ts --exec \"node -r esbuild-register\" src/main.ts",
+    "prettier": "prettier --write .",
+    "lint": "eslint src/**.ts --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^12.0.0",
+    "dotenv": "^16.0.1",
+    "koa": "^2.13.4",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.5",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "esbuild": "^0.14.51",
+    "esbuild-register": "^3.3.3",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
+}
