@@ -1,0 +1,17 @@
+import { recursionGetFilePath } from '@/utils/recursion'
+
+import type Router from '@koa/router'
+import type { IApp } from '@/app/types'
+
+function useRouter(this: IApp) {
+  const routerPaths = recursionGetFilePath(__dirname, '.router.ts')
+
+  routerPaths.forEach((routerPath) => {
+    const router: Router = require(routerPath).default
+
+    this.use(router.routes())
+    this.use(router.allowedMethods())
+  })
+}
+
+export default useRouter
