@@ -1,4 +1,4 @@
-import errorType from '@/constants/error-type'
+import errorType from '@/constants/errorType'
 
 import type { ParameterizedContext } from 'koa'
 

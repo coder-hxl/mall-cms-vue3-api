@@ -2,7 +2,7 @@ import Koa from 'koa'
 import koaBody from 'koa-body'
 
 import useRouter from '@/router'
-import errorHandle from './error-handle'
+import errorHandle from './errorHandle'
 
 import type { IApp } from './types'
 

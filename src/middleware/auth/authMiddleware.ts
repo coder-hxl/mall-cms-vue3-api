@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
 
-import userService from '@/service/user/user.service'
+import userService from '@/service/user/userService'
 import { sha256Password } from '@/utils/passwordHandle'
 
-import errorType from '@/constants/error-type'
+import errorType from '@/constants/errorType'
 import { PUBLIC_KEY } from '@/app/config'
 
 import type { IMiddleware } from '../types'
