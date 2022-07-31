@@ -3,7 +3,7 @@ import type { RouterParamContext } from '@koa/router'
 
 import type { IUser } from '@/service/types'
 
-interface IAuthContext {
+interface IContext {
   user: IUser
 }
 
@@ -12,10 +12,10 @@ interface IResponseBody {
   data: any
 }
 
-type IMiddleware<Context = IAuthContext> = Middleware<
+type IMiddleware<Context = IContext> = Middleware<
   DefaultState,
   Context & RouterParamContext<DefaultState, Context>,
   IResponseBody
 >
 
-export { IMiddleware }
+export { IMiddleware, IContext }

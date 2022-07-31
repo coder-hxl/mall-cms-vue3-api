@@ -6,10 +6,9 @@ import { sha256Password } from '@/utils/passwordHandle'
 import errorType from '@/constants/errorType'
 import { PUBLIC_KEY } from '@/app/config'
 
-import type { IMiddleware } from '../types'
-import type { IAuthContent } from './types'
+import type { IMiddleware } from './types'
 
-const verifyLogin: IMiddleware<IAuthContent> = async (ctx, next) => {
+const verifyLogin: IMiddleware = async (ctx, next) => {
   const { name, password } = ctx.request.body
 
   // 1.验证是否为空
@@ -38,7 +37,7 @@ const verifyLogin: IMiddleware<IAuthContent> = async (ctx, next) => {
   await next()
 }
 
-const verifyAuth: IMiddleware<IAuthContent> = async (ctx, next) => {
+const verifyAuth: IMiddleware = async (ctx, next) => {
   // 1.获取 token
   const authorization = ctx.header.authorization
   const token = authorization?.replace('Bearer ', '') ?? ''

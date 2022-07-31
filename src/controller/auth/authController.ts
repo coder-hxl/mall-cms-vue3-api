@@ -9,7 +9,7 @@ const authController: IAuthController = {
     const { id, name } = ctx.user
 
     const token = jwt.sign({ id, name }, PRIVATE_KEY, {
-      expiresIn: 60 * 60 * 24,
+      expiresIn: 60 * 60 * 24 * 30,
       algorithm: 'RS256'
     })
 

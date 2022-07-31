@@ -26,6 +26,16 @@ const errorHandle = (error: Error, ctx: ParameterizedContext) => {
       message = '未授权~'
       break
 
+    case errorType.LACK_MUST_VALUE:
+      status = 400
+      message = '缺少必传值~'
+      break
+
+    case errorType.USER_IS_EXISTS:
+      status = 400
+      message = '用户名已存在~'
+      break
+
     default:
       status = 404
       message = 'NOT FOUND~'
