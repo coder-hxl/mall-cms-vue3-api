@@ -24,14 +24,14 @@ const verifyUser: IMiddleware = async (ctx, next) => {
   )
   if (!isAllExist) {
     const error = new Error(errorType.LACK_MUST_VALUE)
-    ctx.app.emit('error', error, ctx)
+    return ctx.app.emit('error', error, ctx)
   }
 
   // 2.判断用户是否被注册
   const userResult = await userService.getUserByName(userInfo.name)
   if (userResult.length) {
     const error = new Error(errorType.USER_IS_EXISTS)
-    ctx.app.emit('error', error, ctx)
+    return ctx.app.emit('error', error, ctx)
   }
 
   await next()
