@@ -1,8 +1,8 @@
-import type { Middleware as RMiddleware } from '@koa/router'
+import type { IMiddleware } from '@/middleware/types'
 
 interface IAuthController {
-  login: RMiddleware
-  success: RMiddleware
+  login: IMiddleware
+  success: IMiddleware
 }
 
 export { IAuthController }

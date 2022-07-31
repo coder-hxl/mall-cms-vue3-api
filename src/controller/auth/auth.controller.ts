@@ -23,7 +23,10 @@ const authController: IAuthController = {
     }
   },
   async success(ctx, next) {
-    ctx.body = '授权成功~'
+    ctx.body = {
+      code: 0,
+      data: '授权成功~'
+    }
   }
 }
 

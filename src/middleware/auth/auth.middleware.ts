@@ -6,9 +6,10 @@ import { sha256Password } from '@/utils/passwordHandle'
 import errorType from '@/constants/error-type'
 import { PUBLIC_KEY } from '@/app/config'
 
-import type { Middleware as RMiddleware } from '@koa/router'
+import type { IMiddleware } from '../types'
+import type { IAuthContent } from './types'
 
-const verifyLogin: RMiddleware = async (ctx, next) => {
+const verifyLogin: IMiddleware<IAuthContent> = async (ctx, next) => {
   const { name, password } = ctx.request.body
 
   // 1.验证是否为空
@@ -37,16 +38,18 @@ const verifyLogin: RMiddleware = async (ctx, next) => {
   await next()
 }
 
-const verifyAuth: RMiddleware = async (ctx, next) => {
+const verifyAuth: IMiddleware<IAuthContent> = async (ctx, next) => {
   // 1.获取 token
   const authorization = ctx.header.authorization
   const token = authorization?.replace('Bearer ', '') ?? ''
 
   // 2.验证 token
   try {
-    jwt.verify(token, PUBLIC_KEY, {
+    const user = jwt.verify(token, PUBLIC_KEY, {
       algorithms: ['RS256']
-    })
+    }) as any
+
+    ctx.user = user
 
     await next()
   } catch {

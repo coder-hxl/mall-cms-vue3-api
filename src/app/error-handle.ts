@@ -33,7 +33,10 @@ const errorHandle = (error: Error, ctx: ParameterizedContext) => {
   }
 
   ctx.status = status
-  ctx.body = message
+  ctx.body = {
+    code: status,
+    data: message
+  }
 }
 
 export default errorHandle
