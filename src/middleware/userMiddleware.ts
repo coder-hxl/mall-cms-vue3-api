@@ -1,5 +1,5 @@
 import userService from '@/service/user/userService'
-import { isMustValueExist } from '@/utils/include'
+import { objMustValNotNull } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
 
@@ -10,7 +10,7 @@ const verifyUser: IMiddleware = async (ctx, next) => {
   const userInfo = ctx.request.body
 
   // 1.判断必传值是否为空
-  const isAllExist = isMustValueExist(
+  const isAllExist = objMustValNotNull(
     [
       'name',
       'realname',

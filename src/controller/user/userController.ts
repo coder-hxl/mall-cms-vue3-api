@@ -1,5 +1,7 @@
 import userService from '@/service/user/userService'
 
+import { toString } from '@/utils/transition'
+
 import type { IUserController } from './types'
 
 const userController: IUserController = {
@@ -11,6 +13,56 @@ const userController: IUserController = {
     ctx.body = {
       code: 0,
       data: '创建用户成功~'
+    }
+  },
+  async delete(ctx, next) {
+    const { userId } = ctx.params
+
+    await userService.delete(userId)
+
+    ctx.body = {
+      code: 0,
+      data: '删除用户成功~'
+    }
+  },
+  async update(ctx, next) {
+    const { userId } = ctx.params
+    const updateInfo = ctx.request.body
+
+    await userService.update(userId, updateInfo)
+
+    ctx.body = {
+      code: 0,
+      data: '修改用户成功~'
+    }
+  },
+  async detail(ctx, next) {
+    const { userId } = ctx.params
+
+    const result = await userService.getUserByID(userId)
+
+    ctx.body = {
+      code: 0,
+      data: result
+    }
+  },
+  async list(ctx, next) {
+    const { offset, size } = toString(ctx.request.body)
+    const like = ctx.request.body
+    let showLimit = false
+
+    if (offset && size) {
+      showLimit = true
+    }
+
+    const result = await userService.getUserList(like, showLimit, offset, size)
+
+    ctx.body = {
+      code: 0,
+      data: {
+        list: result,
+        totalCount: result.length
+      }
     }
   }
 }

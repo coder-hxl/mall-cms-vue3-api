@@ -13,5 +13,9 @@ userRouter.post(
   handlePassword,
   userController.create
 )
+userRouter.delete('/:userId', verifyAuth, userController.delete)
+userRouter.patch('/:userId', verifyAuth, handlePassword, userController.update)
+userRouter.get('/:userId', verifyAuth, userController.detail)
+userRouter.post('/list', verifyAuth, userController.list)
 
 export default userRouter
