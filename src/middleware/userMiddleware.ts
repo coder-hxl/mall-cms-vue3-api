@@ -1,41 +1,5 @@
-import userService from '@/service/user/userService'
-import { objMustValNotNull } from '@/utils/verify'
-
-import errorType from '@/constants/errorType'
-
 import type { IMiddleware } from './types'
 import { sha256Password } from '@/utils/passwordHandle'
-
-const verifyUser: IMiddleware = async (ctx, next) => {
-  const userInfo = ctx.request.body
-
-  // 1.判断必传值是否为空
-  const isAllExist = objMustValNotNull(
-    [
-      'name',
-      'realname',
-      'password',
-      'cellphone',
-      'enable',
-      'departmentId',
-      'roleId'
-    ],
-    userInfo
-  )
-  if (!isAllExist) {
-    const error = new Error(errorType.LACK_MUST_VALUE)
-    return ctx.app.emit('error', error, ctx)
-  }
-
-  // 2.判断用户是否被注册
-  const userResult = await userService.getUserByName(userInfo.name)
-  if (userResult.length) {
-    const error = new Error(errorType.USER_IS_EXISTS)
-    return ctx.app.emit('error', error, ctx)
-  }
-
-  await next()
-}
 
 const handlePassword: IMiddleware = async (ctx, next) => {
   const { password } = ctx.request.body
@@ -44,4 +8,4 @@ const handlePassword: IMiddleware = async (ctx, next) => {
   await next()
 }
 
-export { verifyUser, handlePassword }
+export { handlePassword }

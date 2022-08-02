@@ -2,7 +2,7 @@ interface IAnyObj {
   [key: string]: any
 }
 
-const sqlExpectHandle = {
+const mapSqlStatement = {
   create<T = IAnyObj>(createInfo: T) {
     const inserts = []
     const placeholders = []
@@ -46,4 +46,4 @@ const sqlExpectHandle = {
   }
 }
 
-export default sqlExpectHandle
+export default mapSqlStatement

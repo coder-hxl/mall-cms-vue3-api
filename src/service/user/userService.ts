@@ -1,6 +1,6 @@
 import pool from '@/app/database'
 
-import sqlExpectHandle from '@/utils/sqlExpectHandle'
+import mapSqlStatement from '@/utils/mapSqlStatement'
 
 import type { IUserService } from './types'
 import type { IUser } from '../types'
@@ -8,7 +8,7 @@ import type { IUser } from '../types'
 const userService: IUserService = {
   async create(userInfo) {
     const { inserts, placeholders, values } =
-      sqlExpectHandle.create<IUser>(userInfo)
+      mapSqlStatement.create<IUser>(userInfo)
 
     const statement = `INSERT INTO users (${inserts.join()}) VALUES (${placeholders.join()});`
 
@@ -24,7 +24,7 @@ const userService: IUserService = {
     return result
   },
   async update(userId, updateInfo) {
-    const { updates, values } = sqlExpectHandle.update<IUser>(updateInfo)
+    const { updates, values } = mapSqlStatement.update<IUser>(updateInfo)
 
     const statement = `UPDATE users SET ${updates.join()} WHERE id = ?;`
 
@@ -56,7 +56,7 @@ const userService: IUserService = {
     return result[0]
   },
   async getUserList(like, showLimit, offset, size) {
-    const likes = sqlExpectHandle.like(like, 'u')
+    const likes = mapSqlStatement.like(like, 'u')
     const value = showLimit ? [offset, size] : []
 
     const statement = `

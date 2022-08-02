@@ -1,6 +1,6 @@
 import Router from '@koa/router'
 
-import { verifyLogin, verifyAuth } from '@/middleware/authMiddleware'
+import { verifyLogin, verifyAuth } from '@/middleware/verifyMiddleware'
 import authController from '@/controller/auth/authController'
 
 const authRouter = new Router()
