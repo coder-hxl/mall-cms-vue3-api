@@ -43,8 +43,12 @@ const userService: IUserService = {
     const statement = `
       SELECT
         u.id, u.name, u.realname, u.cellphone, u.enable, u.createAt, u.updateAt,
-      	JSON_OBJECT('name', r.name, 'intro', r.intro, 'createAt', r.createAt,'updateAt', r.updateAt) role,
-      	JSON_OBJECT('name', d.name, 'parentId', d.parentId, 'leader', d.leader, 'createAt', d.createAt, 'updateAt', d.updateAt) depatment
+      	JSON_OBJECT(
+          'id', r.id, 'name', r.name, 'intro', r.intro, 'createAt', r.createAt,'updateAt', r.updateAt
+        ) role,
+      	JSON_OBJECT(
+          'id', d.id, 'name', d.name, 'parentId', d.parentId, 'leader', d.leader, 'createAt', d.createAt, 'updateAt', d.updateAt
+        ) depatment
       FROM users u
       LEFT JOIN role r ON r.id = u.roleId
       LEFT JOIN department d ON d.id = u.departmentId
@@ -55,19 +59,18 @@ const userService: IUserService = {
 
     return result[0]
   },
-  async getUserList(like, showLimit, offset, size) {
+  async getUserList(like, limit) {
     const likes = mapSqlStatement.like(like, 'u')
-    const value = showLimit ? [offset, size] : []
 
     const statement = `
       SELECT
-    	  u.name, u.realname, u.cellphone, u.enable, u.departmentId, u.roleId, u.createAt, u.updateAt
+    	  u.id, u.name, u.realname, u.cellphone, u.enable, u.departmentId, u.roleId, u.createAt, u.updateAt
       FROM users u
       ${likes.length ? `WHERE ${likes.join(' ')}` : ''}
-      ${showLimit ? 'LIMIT ?, ?' : ''};
+      ${limit.length ? 'LIMIT ?, ?' : ''};
     `
 
-    const [result] = await pool.execute<any[]>(statement, value)
+    const [result] = await pool.execute<any[]>(statement, limit)
 
     return result
   }

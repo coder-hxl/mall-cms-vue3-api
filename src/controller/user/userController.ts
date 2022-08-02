@@ -49,13 +49,16 @@ const userController: IUserController = {
   async list(ctx, next) {
     const { offset, size } = toString(ctx.request.body)
     const like = ctx.request.body
-    let showLimit = false
+    let hasLimit = false
 
     if (offset && size) {
-      showLimit = true
+      hasLimit = true
     }
 
-    const result = await userService.getUserList(like, showLimit, offset, size)
+    const result = await userService.getUserList(
+      like,
+      hasLimit ? [offset, size] : []
+    )
 
     ctx.body = {
       code: 0,
