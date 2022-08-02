@@ -1,15 +1,16 @@
 import jwt from 'jsonwebtoken'
 
 import userService from '@/service/user/userService'
+import departmentService from '@/service/department/departmentService'
 
 import { sha256Password } from '@/utils/passwordHandle'
 import { objMustValNotNull } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
+import registerMust from '@/constants/registerMust'
 import { PUBLIC_KEY } from '@/app/config'
 
 import type { IMiddleware } from './types'
-import getRegisterMustInfo from '@/utils/register'
 
 const verifyLogin: IMiddleware = async (ctx, next) => {
   const { name, password } = ctx.request.body
@@ -64,8 +65,7 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
   const pathname = ctx.URL.pathname
   const rawInfo = ctx.request.body
   // 获取表中值为非空的字段名
-  const registerMustInfo = getRegisterMustInfo(pathname)
-  console.log(registerMustInfo)
+  const registerMustInfo = registerMust[pathname.replace('/', '')]
 
   // 1.判断必传值是否为空
   const isAllExist = objMustValNotNull(registerMustInfo, rawInfo)
@@ -81,7 +81,7 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
       result = await userService.getUserByName(rawInfo.name)
       break
     case '/department':
-      result = await userService.getUserByName(rawInfo.name)
+      result = await departmentService.getDepartmentByName(rawInfo.name)
       break
   }
 

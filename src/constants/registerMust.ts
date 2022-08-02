@@ -17,9 +17,4 @@ const registerMust: IRegisterMust = {
   department: ['name', 'leader']
 }
 
-const getRegisterMustInfo = (pathname: string) => {
-  const name = pathname.replace('/', '')
-  return registerMust[name]
-}
-
-export default getRegisterMustInfo
+export default registerMust
