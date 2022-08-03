@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 
 import userService from '@/service/user/userService'
 import departmentService from '@/service/department/departmentService'
+import menuService from '@/service/menu/menuService'
 
 import { sha256Password } from '@/utils/passwordHandle'
 import { objMustValNotNull } from '@/utils/verify'
@@ -82,6 +83,16 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
       break
     case '/department':
       result = await departmentService.getDepartmentByName(rawInfo.name)
+      break
+    case '/menu':
+      result = await menuService.getMenuByName(rawInfo.name)
+
+      if (result.length) {
+        break
+      }
+
+      result = await menuService.getMenuByUrl(rawInfo.url)
+
       break
   }
 

@@ -1,3 +1,6 @@
+type strOrNull = string | null
+type numOrNull = number | null
+
 interface ITableCommon {
   id?: number
   name?: string
@@ -6,7 +9,6 @@ interface ITableCommon {
 }
 
 interface IUser extends ITableCommon {
-  id?: number
   realname?: string
   password?: string
   cellphone?: number
@@ -16,9 +18,17 @@ interface IUser extends ITableCommon {
 }
 
 interface IDepartment extends ITableCommon {
-  id?: number
   parentId?: number
   leader?: string
 }
 
-export { ITableCommon, IUser, IDepartment }
+interface IMenu extends ITableCommon {
+  type?: number
+  icon?: strOrNull
+  parendId?: numOrNull
+  url?: strOrNull
+  sort?: numOrNull
+  permission?: strOrNull
+}
+
+export { ITableCommon, IUser, IDepartment, IMenu }
