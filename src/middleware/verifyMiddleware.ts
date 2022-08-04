@@ -91,7 +91,7 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
         break
       }
 
-      result = await menuService.getMenuByUrl(rawInfo.url)
+      rawInfo.url && (result = await menuService.getMenuByUrl(rawInfo.url))
 
       break
   }

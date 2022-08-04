@@ -6,7 +6,7 @@ interface IDepartmentService {
   update(id: string, info: IDepartment): Promise<any>
   getDepartmentByName(name: string): Promise<IDepartment[]>
   getDepartmentById(id: string): Promise<IDepartment>
-  getUserList(like: IDepartment, limit: string[]): Promise<IDepartment[]>
+  getDepartmentList(like: IDepartment, limit: string[]): Promise<IDepartment[]>
 }
 
 export { IDepartmentService }
