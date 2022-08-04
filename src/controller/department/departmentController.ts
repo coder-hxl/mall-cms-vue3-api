@@ -55,7 +55,7 @@ const departmentControll: IDepatmentController = {
       hasLimit = true
     }
 
-    const result = await departmentService.getUserList(
+    const result = await departmentService.getDepartmentList(
       like,
       hasLimit ? [offset, size] : []
     )

@@ -43,7 +43,7 @@ const departmentService: IDepartmentService = {
 
     return result[0]
   },
-  async getUserList(like, limit) {
+  async getDepartmentList(like, limit) {
     const likes = mapSqlStatement.like(like, 'd')
 
     const statement = `
