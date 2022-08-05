@@ -25,7 +25,7 @@ const menuService: IMenuService = {
   },
   async update(menuId, menuInfo) {
     const { updates, values } = mapSqlStatement.update(menuInfo)
-    const statement = `UPDATE menu SET ${updates.join(',')} WHERE id = ?;`
+    const statement = `UPDATE menu SET ${updates.join()} WHERE id = ?;`
 
     const [result] = await pool.execute(statement, [...values, menuId])
 

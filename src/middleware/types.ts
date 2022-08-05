@@ -4,7 +4,7 @@ import type { RouterParamContext } from '@koa/router'
 import type { IRole, IUser } from '@/service/types'
 
 interface IContext {
-  user: IUser
+  user?: IUser
   role?: IRole
   menuList?: number[]
 }

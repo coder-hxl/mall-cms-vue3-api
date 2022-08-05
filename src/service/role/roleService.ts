@@ -15,7 +15,7 @@ const roleService: IRoleService = {
   },
   async update(roleId, roleInfo) {
     const { updates, values } = mapSqlStatement.update(roleInfo)
-    const statement = `UPDATE role SET ${updates.join(',')} WHERE id = ?;`
+    const statement = `UPDATE role SET ${updates.join()} WHERE id = ?;`
 
     const [result] = await pool.execute(statement, [...values, roleId])
 
