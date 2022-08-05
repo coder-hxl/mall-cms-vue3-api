@@ -15,7 +15,8 @@ const registerMust: IRegisterMust = {
     'roleId'
   ],
   department: ['name', 'leader'],
-  menu: ['name', 'type']
+  menu: ['name', 'type'],
+  role: ['name']
 }
 
 export default registerMust

@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import userService from '@/service/user/userService'
 import departmentService from '@/service/department/departmentService'
 import menuService from '@/service/menu/menuService'
+import roleService from '@/service/role/roleService'
 
 import { sha256Password } from '@/utils/passwordHandle'
 import { objMustValNotNull } from '@/utils/verify'
@@ -93,6 +94,9 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
 
       rawInfo.url && (result = await menuService.getMenuByUrl(rawInfo.url))
 
+      break
+    case '/role':
+      result = await roleService.getRoleByName(rawInfo.name)
       break
   }
 
