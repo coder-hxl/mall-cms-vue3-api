@@ -31,4 +31,13 @@ interface IMenu extends ITableCommon {
   permission?: strOrNull
 }
 
-export { ITableCommon, IUser, IDepartment, IMenu }
+interface IRole extends ITableCommon {
+  intro?: string
+}
+
+interface IRoleMenu extends ITableCommon {
+  roleId?: number
+  menuId?: number
+}
+
+export { ITableCommon, IUser, IDepartment, IMenu, IRole, IRoleMenu }
