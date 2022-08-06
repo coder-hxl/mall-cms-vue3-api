@@ -13,6 +13,10 @@ roleRouter.post(
   classify,
   roleController.create
 )
+roleRouter.delete('/:roleId', verifyAuth, roleController.delete)
 roleRouter.patch('/:roleId', verifyAuth, classify, roleController.update)
+roleRouter.get('/:roleId', verifyAuth, roleController.detail)
+roleRouter.get('/:roleId/menu', verifyAuth, roleController.roleMenu)
+roleRouter.post('/:list', verifyAuth, roleController.list)
 
 export default roleRouter

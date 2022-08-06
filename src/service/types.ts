@@ -25,14 +25,18 @@ interface IDepartment extends ITableCommon {
 interface IMenu extends ITableCommon {
   type?: number
   icon?: strOrNull
-  parendId?: numOrNull
+  parentId?: numOrNull
   url?: strOrNull
   sort?: numOrNull
   permission?: strOrNull
+
+  children?: IMenu[]
 }
 
 interface IRole extends ITableCommon {
   intro?: string
+
+  menuList?: IMenu[]
 }
 
 interface IRoleMenu extends ITableCommon {

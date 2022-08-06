@@ -1,6 +1,9 @@
 import roleService from '@/service/role/roleService'
 import roleMenuService from '@/service/roleMenu/roleMenuService'
 
+import { toString } from '@/utils/transition'
+import { menuListHandle } from '@/utils/menuHandle'
+
 import type { IRoleController } from './types'
 
 const roleController: IRoleController = {
@@ -17,6 +20,16 @@ const roleController: IRoleController = {
     ctx.body = {
       code: 0,
       data: `创建${roleInfo.name}成功~`
+    }
+  },
+  async delete(ctx, next) {
+    const { roleId } = ctx.params
+
+    await roleService.delete(roleId)
+
+    ctx.body = {
+      code: 200,
+      data: '删除角色成功~'
     }
   },
   async update(ctx, next) {
@@ -52,6 +65,53 @@ const roleController: IRoleController = {
     ctx.body = {
       code: 0,
       data: '修改角色成功~'
+    }
+  },
+  async detail(ctx, next) {
+    const { roleId } = ctx.params
+
+    const [result] = await roleService.getRoleByAny('id', roleId)
+
+    ctx.body = {
+      code: 200,
+      data: result
+    }
+  },
+  async list(ctx, next) {
+    const { offset, size } = toString(ctx.request.body)
+
+    let hasLimit = false
+    if (offset && size) {
+      hasLimit = true
+    }
+
+    const roleResult = await roleService.getRoleList(
+      hasLimit ? [offset, size] : []
+    )
+
+    // 处理 menuList
+    for (const role of roleResult) {
+      role.menuList = menuListHandle(role.menuList)
+    }
+
+    ctx.body = {
+      code: 200,
+      data: {
+        list: roleResult,
+        totalCount: roleResult.length
+      }
+    }
+  },
+  async roleMenu(ctx, next) {
+    const { roleId } = ctx.params
+
+    const menuList = await roleService.getRoleMenuById(roleId)
+
+    const result = menuListHandle(menuList)
+
+    ctx.body = {
+      code: 200,
+      data: result
     }
   }
 }

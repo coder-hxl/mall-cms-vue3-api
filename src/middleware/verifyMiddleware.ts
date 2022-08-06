@@ -96,7 +96,7 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
 
       break
     case '/role':
-      result = await roleService.getRoleByName(rawInfo.name)
+      result = await roleService.getRoleByAny('name', rawInfo.name)
       break
   }
 

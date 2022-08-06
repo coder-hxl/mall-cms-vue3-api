@@ -1,4 +1,4 @@
-import { recursionGetFilePath } from '@/utils/recursion'
+import { recursionGetFilePath } from '@/utils/pathHandle'
 
 import type Router from '@koa/router'
 import type { IApp } from '@/app/types'
