@@ -26,19 +26,33 @@ const mapSqlStatement = {
     return { updates, values }
   },
   like<T = IAnyObj>(likeInfo: T, tablesName: string) {
-    const likes = []
+    const likes: string[] = []
     let isFirst = true
 
+    function addLikes(sqlStr: string) {
+      // 确保添加 AND 关键字的时机
+      if (isFirst) {
+        likes.push(sqlStr)
+        isFirst = false
+      } else {
+        likes.push(`AND ${sqlStr}`)
+      }
+    }
+
     for (const key in likeInfo) {
-      if (key !== 'offset' && key !== 'size') {
-        const value = likeInfo[key]
-        // 第一次无需加 AND 关键字, 后面要加
-        if (isFirst) {
-          likes.push(`${tablesName}.${key} LIKE '%${value}%'`)
-          isFirst = false
-        } else {
-          likes.push(`AND ${tablesName}.${key} LIKE '%${value}%'`)
-        }
+      const TKey = `${tablesName}.${key}`
+      const value: string | string[] = likeInfo[key] as any
+
+      if (!value) {
+        continue
+      }
+
+      if (key === 'createAt' || key === 'updateAt') {
+        const sqlTime = `${TKey} >= '${value[0]}' AND ${TKey} <= '${value[1]}'`
+        addLikes(sqlTime)
+      } else if (key !== 'offset' && key !== 'size') {
+        const sqlLike = `${TKey} LIKE '%${value}%'`
+        addLikes(sqlLike)
       }
     }
 
