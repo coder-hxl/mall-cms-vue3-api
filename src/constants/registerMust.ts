@@ -5,16 +5,8 @@ interface IRegisterMust {
 }
 
 const registerMust: IRegisterMust = {
-  users: [
-    'name',
-    'realname',
-    'password',
-    'cellphone',
-    'enable',
-    'departmentId',
-    'roleId'
-  ],
-  department: ['name', 'leader'],
+  users: ['name', 'realname', 'password', 'cellphone', 'enable'],
+  department: ['name'],
   menu: ['name', 'type'],
   role: ['name']
 }
