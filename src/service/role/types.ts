@@ -5,7 +5,7 @@ interface IRoleService {
   update(roleId: string, roleInfo: IRole): Promise<any>
   delete(roleId: string): Promise<any>
   getRoleByAny(key: string, value: string): Promise<IRole[]>
-  getRoleList(limit: any[]): Promise<IRole[]>
+  getRoleList(like: IRole, limit: any[]): Promise<IRole[]>
   getRoleMenuById(roleId: string): Promise<IMenu[]>
 }
 

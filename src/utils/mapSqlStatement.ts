@@ -41,9 +41,10 @@ const mapSqlStatement = {
 
     for (const key in likeInfo) {
       const TKey = `${tablesName}.${key}`
-      const value: string | string[] = likeInfo[key] as any
+      const value: any = likeInfo[key]
 
-      if (!value) {
+      if (!value && value !== 0) {
+        // 值为 0 不能跳过
         continue
       }
 

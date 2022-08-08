@@ -4,7 +4,7 @@ import mapSqlStatement from '@/utils/mapSqlStatement'
 import type { IMenuService } from './types'
 
 const getField = (TName: string) => {
-  return `'id', ${TName}.id, 'name', ${TName}.name, 'type', ${TName}.type, 'icon', ${TName}.icon, 'parentId', ${TName}.parentId, 'url', ${TName}.url, 'premission', ${TName}.permission, 'createAt', ${TName}.createAt,'updateAt', ${TName}.updateAt`
+  return `'id', ${TName}.id, 'name', ${TName}.name, 'type', ${TName}.type, 'icon', ${TName}.icon, 'parentId', ${TName}.parentId, 'url', ${TName}.url, 'permission', ${TName}.permission, 'createAt', ${TName}.createAt,'updateAt', ${TName}.updateAt`
 }
 
 const menuService: IMenuService = {
@@ -59,7 +59,7 @@ const menuService: IMenuService = {
     const sqlLimit = limit.length ? 'LIMIT ?, ?' : ''
     const statement = `
       SELECT
-      	m.id, m.name, m.type, m.icon, m.url, m.sort, m.createAt, m.updateAt,
+      	m.id, m.name, m.type, m.icon, m.url, m.sort, m.permission, m.createAt, m.updateAt,
       	(SELECT
       		JSON_ARRAYAGG(JSON_OBJECT(${getField('m2')}, 'children', (
       			SELECT

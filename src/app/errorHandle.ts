@@ -36,6 +36,11 @@ const errorHandle = (error: Error, ctx: ParameterizedContext) => {
       message = '名字已存在, 请换一个吧~'
       break
 
+    case errorType.USER_NOT_ENABLE:
+      status = 400
+      message = '不允许使用该用户~'
+      break
+
     default:
       status = 404
       message = 'NOT FOUND~'

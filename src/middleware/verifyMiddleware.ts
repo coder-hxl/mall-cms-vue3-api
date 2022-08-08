@@ -34,7 +34,12 @@ const verifyLogin: IMiddleware = async (ctx, next) => {
   // 3.验证密码
   if (sha256Password(password) !== user.password) {
     const error = new Error(errorType.PASSWORD_IS_INCORRENT)
+    return ctx.app.emit('error', error, ctx)
+  }
 
+  // 4.验证账号是否可用
+  if (!user.enable) {
+    const error = new Error(errorType.USER_NOT_ENABLE)
     return ctx.app.emit('error', error, ctx)
   }
 

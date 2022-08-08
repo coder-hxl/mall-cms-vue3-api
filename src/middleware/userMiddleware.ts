@@ -3,7 +3,9 @@ import { sha256Password } from '@/utils/passwordHandle'
 
 const handlePassword: IMiddleware = async (ctx, next) => {
   const { password } = ctx.request.body
-  ctx.request.body.password = sha256Password(password)
+  if (password) {
+    ctx.request.body.password = sha256Password(password)
+  }
 
   await next()
 }

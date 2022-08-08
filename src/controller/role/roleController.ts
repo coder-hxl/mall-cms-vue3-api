@@ -79,6 +79,7 @@ const roleController: IRoleController = {
   },
   async list(ctx, next) {
     const { offset, size } = toString(ctx.request.body)
+    const like = ctx.request.body
 
     let hasLimit = false
     if (offset && size) {
@@ -86,6 +87,7 @@ const roleController: IRoleController = {
     }
 
     const roleResult = await roleService.getRoleList(
+      like,
       hasLimit ? [offset, size] : []
     )
 
