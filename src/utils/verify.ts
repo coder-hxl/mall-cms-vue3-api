@@ -1,15 +1,9 @@
-interface ITestObj {
-  [key: string]: any
-}
-
-const objMustValNotNull = (
-  mustKeyArr: string[],
-  testObj: ITestObj
-): boolean => {
+const verifyMustInfo = (mustArr: string[], info: any) => {
   let isAllExist = true
 
-  mustKeyArr.forEach((item) => {
-    if (!testObj[item]) {
+  mustArr.forEach((item) => {
+    const value = info[item]
+    if (!value && value !== 0 && value !== null) {
       isAllExist = false
     }
   })
@@ -17,4 +11,4 @@ const objMustValNotNull = (
   return isAllExist
 }
 
-export { objMustValNotNull }
+export { verifyMustInfo }

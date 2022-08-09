@@ -6,10 +6,10 @@ import menuService from '@/service/menu/menuService'
 import roleService from '@/service/role/roleService'
 
 import { sha256Password } from '@/utils/passwordHandle'
-import { objMustValNotNull } from '@/utils/verify'
+import { verifyMustInfo } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
-import registerMust from '@/constants/registerMust'
+import { registerMust, updateMust } from '@/constants/must'
 import { PUBLIC_KEY } from '@/app/config'
 
 import type { IMiddleware } from './types'
@@ -68,20 +68,29 @@ const verifyAuth: IMiddleware = async (ctx, next) => {
   }
 }
 
-const verifyRegister: IMiddleware = async (ctx, next) => {
-  const pathname = ctx.URL.pathname
+const verifyMust: IMiddleware = async (ctx, next) => {
+  let pathname, mustInfo
   const rawInfo = ctx.request.body
-  // 获取表中值为非空的字段名
-  const registerMustInfo = registerMust[pathname.replace('/', '')]
 
-  // 1.判断必传值是否为空
-  const isAllExist = objMustValNotNull(registerMustInfo, rawInfo)
+  const paramsKey = Object.keys(ctx.params)
+  // 注册/更新
+  if (!paramsKey.length) {
+    pathname = ctx.URL.pathname
+    mustInfo = registerMust[pathname.replace('/', '')]
+  } else {
+    const subStr = '/' + ctx.params[paramsKey[0]]
+    pathname = ctx.URL.pathname.replace(subStr, '')
+    mustInfo = updateMust[pathname.replace('/', '')]
+  }
+
+  // 1.判断必传值是否存在
+  const isAllExist = verifyMustInfo(mustInfo, rawInfo)
   if (!isAllExist) {
     const error = new Error(errorType.LACK_MUST_VALUE)
     return ctx.app.emit('error', error, ctx)
   }
 
-  // 2.判断名字是否已注册
+  // 2.判断名字是否存在
   let result: any
   switch (pathname) {
     case '/users':
@@ -106,11 +115,17 @@ const verifyRegister: IMiddleware = async (ctx, next) => {
   }
 
   if (result.length) {
-    const error = new Error(errorType.NAME_IS_EXISTS)
-    return ctx.app.emit('error', error, ctx)
+    // 注册/更新
+    if (!paramsKey.length) {
+      const error = new Error(errorType.NAME_IS_EXISTS)
+      return ctx.app.emit('error', error, ctx)
+    } else if (result[0].name != rawInfo.name) {
+      const error = new Error(errorType.NAME_IS_EXISTS)
+      return ctx.app.emit('error', error, ctx)
+    }
   }
 
   await next()
 }
 
-export { verifyLogin, verifyAuth, verifyRegister }
+export { verifyLogin, verifyAuth, verifyMust }

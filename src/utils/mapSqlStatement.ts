@@ -44,7 +44,6 @@ const mapSqlStatement = {
       const value: any = likeInfo[key]
 
       if (!value && value !== 0) {
-        // 值为 0 不能跳过
         continue
       }
 

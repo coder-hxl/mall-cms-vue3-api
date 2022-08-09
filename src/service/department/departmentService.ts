@@ -48,8 +48,10 @@ const departmentService: IDepartmentService = {
 
     const statement = `
       SELECT
-    	  d.id, d.name, d.parentId, d.leader, d.createAt, d.updateAt
+    	  d.id, d.name, d.parentId, d.leader, d.createAt, d.updateAt,
+        dc.name parentName
       FROM department d
+      LEFT JOIN department dc ON dc.id = d.parentId
       ${likes.length ? `WHERE ${likes.join(' ')}` : ''}
       ${limit.length ? 'LIMIT ?, ?' : ''};
     `
