@@ -6,6 +6,7 @@ const NAME_OR_PASSWORD_IS_REQUIRED = 'name_or_password_is_required'
 
 const UNAUTHORIZATION = 'unauthorization'
 const LACK_MUST_VALUE = 'lack_must_value'
+const REGEX_MISMATCH = 'regex_mismatch'
 
 export default {
   USER_NOT_EXISTS,
@@ -14,5 +15,6 @@ export default {
   PASSWORD_IS_INCORRENT,
   NAME_OR_PASSWORD_IS_REQUIRED,
   UNAUTHORIZATION,
-  LACK_MUST_VALUE
+  LACK_MUST_VALUE,
+  REGEX_MISMATCH
 }

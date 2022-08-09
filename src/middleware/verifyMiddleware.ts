@@ -6,10 +6,10 @@ import menuService from '@/service/menu/menuService'
 import roleService from '@/service/role/roleService'
 
 import { sha256Password } from '@/utils/passwordHandle'
-import { verifyMustInfo } from '@/utils/verify'
+import { regexRulesInfo } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
-import { registerMust, updateMust } from '@/constants/must'
+import { registerRules, updateRules } from '@/constants/rules'
 import { PUBLIC_KEY } from '@/app/config'
 
 import type { IMiddleware } from './types'
@@ -76,18 +76,18 @@ const verifyMust: IMiddleware = async (ctx, next) => {
   // 注册/更新
   if (!paramsKey.length) {
     pathname = ctx.URL.pathname
-    mustInfo = registerMust[pathname.replace('/', '')]
+    // mustInfo = registerRules[pathname.replace('/', '')]
   } else {
     const subStr = '/' + ctx.params[paramsKey[0]]
     pathname = ctx.URL.pathname.replace(subStr, '')
-    mustInfo = updateMust[pathname.replace('/', '')]
+    mustInfo = updateRules[pathname.replace('/', '')]
   }
 
-  // 1.判断必传值是否存在
-  const isAllExist = verifyMustInfo(mustInfo, rawInfo)
-  if (!isAllExist) {
-    const error = new Error(errorType.LACK_MUST_VALUE)
-    return ctx.app.emit('error', error, ctx)
+  // 1.正则匹配规则
+  const { isSucceed, message } = regexRulesInfo(mustInfo as any, rawInfo)
+  if (!isSucceed) {
+    const error = new Error(errorType.REGEX_MISMATCH)
+    return ctx.app.emit('error', error, ctx, message)
   }
 
   // 2.判断名字是否存在

@@ -2,7 +2,11 @@ import errorType from '@/constants/errorType'
 
 import type { ParameterizedContext } from 'koa'
 
-const errorHandle = (error: Error, ctx: ParameterizedContext) => {
+const errorHandle = (
+  error: Error,
+  ctx: ParameterizedContext,
+  otherMessage?: string
+) => {
   let status: number, message: string
 
   switch (error.message) {
@@ -39,6 +43,11 @@ const errorHandle = (error: Error, ctx: ParameterizedContext) => {
     case errorType.USER_NOT_ENABLE:
       status = 400
       message = '不允许使用该用户~'
+      break
+
+    case errorType.REGEX_MISMATCH:
+      status = 400
+      message = otherMessage ?? '正则表达式匹配不通过~'
       break
 
     default:
