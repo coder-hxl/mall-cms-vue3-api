@@ -96,7 +96,7 @@ const menu: IRules = {
       message: '类型是必填内容~'
     },
     {
-      pattern: /^1|2|3$/,
+      pattern: /^[1|2|3]{1}$/,
       message: '类型只能是1, 2, 3其中一个~'
     }
   ]
@@ -114,6 +114,8 @@ const role: IRules = {
     }
   ]
 }
+
+// ------------------------------------------------------------------------
 
 const loginRules: IRules = {
   name: [

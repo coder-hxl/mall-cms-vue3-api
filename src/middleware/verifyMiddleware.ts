@@ -92,7 +92,7 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
     ? await verifyChangeTable(tableName, rawInfo)
     : await verifyChangeTable(tableName, rawInfo, 'update')
 
-  if (result.isChange) {
+  if (!result.isChange) {
     const key = result.key
 
     if (key === 'name') {

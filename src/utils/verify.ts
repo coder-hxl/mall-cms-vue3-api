@@ -59,14 +59,14 @@ const verifyChangeTable = async (
   type: 'default' | 'update' = 'default'
 ) => {
   const result: ITableExistValueResult = {
-    isChange: false
+    isChange: true
   }
 
   const queryFn = queryFns[table]
   const queryKey = queryKeys[table]
 
   function changeResult(queryResult: any, key: string) {
-    result.isChange = true
+    result.isChange = false
     result.key = key
     result.value = queryResult
     return result
