@@ -29,10 +29,10 @@ const departmentService: IDepartmentService = {
 
     return result
   },
-  async getDepartmentByName(name) {
-    const statement = `SELECT * FROM department WHERE name = ?;`
+  async getDepartmentByAny(key, value) {
+    const statement = `SELECT * FROM department WHERE ${key} = ?;`
 
-    const [result] = await pool.execute<any[]>(statement, [name])
+    const [result] = await pool.execute<any[]>(statement, [value])
 
     return result
   },

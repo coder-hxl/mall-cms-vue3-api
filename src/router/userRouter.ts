@@ -1,6 +1,6 @@
 import Router from '@koa/router'
 
-import { verifyAuth, verifyMust } from '@/middleware/verifyMiddleware'
+import { verifyAuth, verifyCUValue } from '@/middleware/verifyMiddleware'
 import { handlePassword } from '@/middleware/userMiddleware'
 import userController from '@/controller/user/userController'
 
@@ -9,7 +9,7 @@ const userRouter = new Router({ prefix: '/users' })
 userRouter.post(
   '/',
   verifyAuth,
-  verifyMust,
+  verifyCUValue,
   handlePassword,
   userController.create
 )
@@ -17,7 +17,7 @@ userRouter.delete('/:userId', verifyAuth, userController.delete)
 userRouter.patch(
   '/:userId',
   verifyAuth,
-  verifyMust,
+  verifyCUValue,
   handlePassword,
   userController.update
 )

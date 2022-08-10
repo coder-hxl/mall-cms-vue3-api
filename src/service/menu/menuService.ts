@@ -31,17 +31,10 @@ const menuService: IMenuService = {
 
     return result
   },
-  async getMenuByName(name) {
-    const statement = `SELECT * FROM menu WHERE name = ?;`
+  async getMenuByAny(key, value) {
+    const statement = `SELECT * FROM menu WHERE ${key} = ?;`
 
-    const [result] = await pool.execute<any[]>(statement, [name])
-
-    return result
-  },
-  async getMenuByUrl(url) {
-    const statement = `SELECT * FROM menu WHERE url = ?;`
-
-    const [result] = await pool.execute<any[]>(statement, [url])
+    const [result] = await pool.execute<any[]>(statement, [value])
 
     return result
   },

@@ -32,10 +32,10 @@ const userService: IUserService = {
 
     return result
   },
-  async getUserByName(userName) {
-    const statement = `SELECT * FROM users WHERE name = ?;`
+  async getUserByAny(key, value) {
+    const statement = `SELECT * FROM users WHERE ${key} = ?;`
 
-    const [result] = await pool.execute<any>(statement, [userName])
+    const [result] = await pool.execute<any>(statement, [value])
 
     return result
   },
