@@ -69,14 +69,14 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
   let tableName, rule
   const rawInfo = ctx.request.body
 
-  const paramsKey = Object.keys(ctx.params)
-  const isCreate = !paramsKey.length
+  const paramsKey = Object.keys(ctx.params)[0]
+  const isCreate = !paramsKey
   // 注册/更新
   if (isCreate) {
     tableName = ctx.URL.pathname.replace('/', '')
     rule = createRules[tableName]
   } else {
-    const subStr = '/' + ctx.params[paramsKey[0]]
+    const subStr = `/${ctx.params[paramsKey]}`
     tableName = ctx.URL.pathname.replace('/', '').replace(subStr, '')
     rule = updateRules[tableName]
   }

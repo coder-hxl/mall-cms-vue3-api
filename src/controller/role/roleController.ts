@@ -78,7 +78,8 @@ const roleController: IRoleController = {
     }
   },
   async list(ctx, next) {
-    const { offset, size } = toString(ctx.request.body)
+    const offset = toString(ctx.request.body.offset)
+    const size = toString(ctx.request.body.size)
     const like = ctx.request.body
 
     let hasLimit = false

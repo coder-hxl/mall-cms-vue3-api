@@ -1,16 +1,5 @@
-interface INewObj {
-  [key: string]: string
-}
-
-const toString = (target: any) => {
-  const newObj: INewObj = {}
-
-  for (const key in target) {
-    const value = target[key]
-    newObj[key] = value.toString()
-  }
-
-  return newObj
+const toString = (value: any) => {
+  return value.toString()
 }
 
 export { toString }
