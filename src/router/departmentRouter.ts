@@ -1,16 +1,16 @@
 import Router from '@koa/router'
 
-import { verifyAuth, verifyCUValue } from '@/middleware/verifyMiddleware'
+import { verifyAuth, verifyCUInfo } from '@/middleware/verifyMiddleware'
 import departmentControll from '@/controller/department/departmentController'
 
 const departmentRouter = new Router({ prefix: '/department' })
 
-departmentRouter.post('/', verifyAuth, verifyCUValue, departmentControll.create)
+departmentRouter.post('/', verifyAuth, verifyCUInfo, departmentControll.create)
 departmentRouter.delete('/:departmentId', verifyAuth, departmentControll.delete)
 departmentRouter.patch(
   '/:departmentId',
   verifyAuth,
-  verifyCUValue,
+  verifyCUInfo,
   departmentControll.update
 )
 departmentRouter.get('/:departmentId', verifyAuth, departmentControll.detail)

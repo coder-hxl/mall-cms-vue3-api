@@ -1,17 +1,17 @@
 import Router from '@koa/router'
 
-import { verifyAuth, verifyCUValue } from '@/middleware/verifyMiddleware'
+import { verifyAuth, verifyCUInfo } from '@/middleware/verifyMiddleware'
 import { classify } from '@/middleware/roleMiddlerware'
 import roleController from '@/controller/role/roleController'
 
 const roleRouter = new Router({ prefix: '/role' })
 
-roleRouter.post('/', verifyAuth, verifyCUValue, classify, roleController.create)
+roleRouter.post('/', verifyAuth, verifyCUInfo, classify, roleController.create)
 roleRouter.delete('/:roleId', verifyAuth, roleController.delete)
 roleRouter.patch(
   '/:roleId',
   verifyAuth,
-  verifyCUValue,
+  verifyCUInfo,
   classify,
   roleController.update
 )

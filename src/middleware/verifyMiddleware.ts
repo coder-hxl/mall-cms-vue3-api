@@ -64,7 +64,7 @@ const verifyAuth: IMiddleware = async (ctx, next) => {
   }
 }
 
-const verifyCUValue: IMiddleware = async (ctx, next) => {
+const verifyCUInfo: IMiddleware = async (ctx, next) => {
   let tableName, rule
   const rawInfo = ctx.request.body
 
@@ -107,4 +107,4 @@ const verifyCUValue: IMiddleware = async (ctx, next) => {
   await next()
 }
 
-export { verifyLogin, verifyAuth, verifyCUValue }
+export { verifyLogin, verifyAuth, verifyCUInfo }
