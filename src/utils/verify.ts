@@ -1,4 +1,12 @@
-import type { IRules, IRulesItem } from '@/constants/rules'
+import { queryFns, queryKeys } from './config/verifyConfig'
+
+import type { IRules, IRulesItem } from '@/middleware/config/rulesConifg'
+
+interface ITableExistValueResult {
+  isChange: boolean
+  key?: string
+  value?: any
+}
 
 const regexRulesInfo = (rules: IRules, infos: any) => {
   const result = {
@@ -45,4 +53,41 @@ const regexRulesInfo = (rules: IRules, infos: any) => {
   return result
 }
 
-export { regexRulesInfo }
+const verifyChangeTable = async (
+  table: string,
+  info: any,
+  type: 'default' | 'update' = 'default'
+) => {
+  const result: ITableExistValueResult = {
+    isChange: false
+  }
+
+  const queryFn = queryFns[table]
+  const queryKey = queryKeys[table]
+
+  function changeResult(queryResult: any, key: string) {
+    result.isChange = true
+    result.key = key
+    result.value = queryResult
+    return result
+  }
+
+  for (const key of queryKey) {
+    const queryResultArr = await queryFn(key, info[key] ?? '')
+    const queryResult = queryResultArr[0]
+
+    if (type === 'default') {
+      if (queryResult) {
+        return changeResult(queryResult, key)
+      }
+    } else {
+      if (queryResult && queryResult[key] !== info[key]) {
+        return changeResult(queryResult, key)
+      }
+    }
+  }
+
+  return result
+}
+
+export { regexRulesInfo, verifyChangeTable }

@@ -76,11 +76,7 @@ const department: IRules = {
       pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$/,
       message: '名字的长度必须在1~20中~'
     }
-  ],
-  parentId: {
-    pattern: /^[0-9]{1,}$/,
-    message: '上级部门Id必须为数字~'
-  }
+  ]
 }
 
 const menu: IRules = {
@@ -126,8 +122,8 @@ const loginRules: IRules = {
       message: '账号是必填内容~'
     },
     {
-      pattern: /^[a-z0-9]{2,20}$/,
-      message: '用户名必须是2~20个字母或者数字~'
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,30}$/,
+      message: '账号的长度必须在1~30中~'
     }
   ],
   password: [
