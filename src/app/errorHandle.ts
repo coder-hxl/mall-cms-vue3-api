@@ -45,6 +45,11 @@ const errorHandle = (
       message = '不允许使用该用户~'
       break
 
+    case errorType.URL_IS_EXISTS:
+      status = 400
+      message = '路径已存在, 请换一个吧~'
+      break
+
     case errorType.REGEX_MISMATCH:
       status = 400
       message = otherMessage ?? '正则表达式匹配不通过~'

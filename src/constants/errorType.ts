@@ -3,6 +3,7 @@ const USER_NOT_ENABLE = 'user_not_enable'
 const NAME_IS_EXISTS = 'name_is_exists'
 const PASSWORD_IS_INCORRENT = 'password_is_incorrent'
 const NAME_OR_PASSWORD_IS_REQUIRED = 'name_or_password_is_required'
+const URL_IS_EXISTS = 'url_is_exists'
 
 const UNAUTHORIZATION = 'unauthorization'
 const LACK_MUST_VALUE = 'lack_must_value'
@@ -14,6 +15,7 @@ export default {
   NAME_IS_EXISTS,
   PASSWORD_IS_INCORRENT,
   NAME_OR_PASSWORD_IS_REQUIRED,
+  URL_IS_EXISTS,
   UNAUTHORIZATION,
   LACK_MUST_VALUE,
   REGEX_MISMATCH
