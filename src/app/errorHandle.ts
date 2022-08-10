@@ -50,6 +50,11 @@ const errorHandle = (
       message = '路径已存在, 请换一个吧~'
       break
 
+    case errorType.FORBID_HANDLE:
+      status = 400
+      message = '初始化数据禁止被操作~'
+      break
+
     case errorType.REGEX_MISMATCH:
       status = 400
       message = otherMessage ?? '正则表达式匹配不通过~'

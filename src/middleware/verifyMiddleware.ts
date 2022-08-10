@@ -6,6 +6,7 @@ import { regexRulesInfo, verifyChangeTable } from '@/utils/verify'
 import errorType from '@/constants/errorType'
 import { PUBLIC_KEY } from '@/app/config'
 import { loginRules, createRules, updateRules } from './config/rulesConifg'
+import forbidHandleIds from './config/forbidConfig'
 
 import type { IMiddleware } from './types'
 
@@ -107,4 +108,18 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
   await next()
 }
 
-export { verifyLogin, verifyAuth, verifyCUInfo }
+const verifyDelete: IMiddleware = async (ctx, next) => {
+  const paramsKey = Object.keys(ctx.params)[0]
+  const id = parseFloat(ctx.params[paramsKey])
+  const tableName = ctx.URL.pathname.replace('/', '').replace(`/${id}`, '')
+  const forbidHandleId = forbidHandleIds[tableName]
+
+  if (forbidHandleId.includes(id)) {
+    const error = new Error(errorType.FORBID_HANDLE)
+    return ctx.app.emit('error', error, ctx)
+  }
+
+  await next()
+}
+
+export { verifyLogin, verifyAuth, verifyCUInfo, verifyDelete }

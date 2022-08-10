@@ -1,6 +1,10 @@
 import Router from '@koa/router'
 
-import { verifyAuth, verifyCUInfo } from '@/middleware/verifyMiddleware'
+import {
+  verifyAuth,
+  verifyCUInfo,
+  verifyDelete
+} from '@/middleware/verifyMiddleware'
 import { handlePassword } from '@/middleware/userMiddleware'
 import userController from '@/controller/user/userController'
 
@@ -13,10 +17,11 @@ userRouter.post(
   handlePassword,
   userController.create
 )
-userRouter.delete('/:userId', verifyAuth, userController.delete)
+userRouter.delete('/:userId', verifyAuth, verifyDelete, userController.delete)
 userRouter.patch(
   '/:userId',
   verifyAuth,
+  verifyDelete,
   verifyCUInfo,
   handlePassword,
   userController.update

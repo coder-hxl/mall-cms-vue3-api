@@ -8,6 +8,7 @@ const URL_IS_EXISTS = 'url_is_exists'
 const UNAUTHORIZATION = 'unauthorization'
 const LACK_MUST_VALUE = 'lack_must_value'
 const REGEX_MISMATCH = 'regex_mismatch'
+const FORBID_HANDLE = 'forbid_handle'
 
 export default {
   USER_NOT_EXISTS,
@@ -18,5 +19,6 @@ export default {
   URL_IS_EXISTS,
   UNAUTHORIZATION,
   LACK_MUST_VALUE,
-  REGEX_MISMATCH
+  REGEX_MISMATCH,
+  FORBID_HANDLE
 }
