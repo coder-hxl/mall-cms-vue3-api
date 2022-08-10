@@ -9,7 +9,7 @@ import { sha256Password } from '@/utils/passwordHandle'
 import { regexRulesInfo } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
-import { registerRules, updateRules } from '@/constants/rules'
+import { createRules, updateRules } from '@/constants/rules'
 import { PUBLIC_KEY } from '@/app/config'
 
 import type { IMiddleware } from './types'
@@ -69,22 +69,22 @@ const verifyAuth: IMiddleware = async (ctx, next) => {
 }
 
 const verifyMust: IMiddleware = async (ctx, next) => {
-  let pathname, mustInfo
+  let pathname, rule
   const rawInfo = ctx.request.body
 
   const paramsKey = Object.keys(ctx.params)
   // 注册/更新
   if (!paramsKey.length) {
     pathname = ctx.URL.pathname
-    // mustInfo = registerRules[pathname.replace('/', '')]
+    rule = createRules[pathname.replace('/', '')]
   } else {
     const subStr = '/' + ctx.params[paramsKey[0]]
     pathname = ctx.URL.pathname.replace(subStr, '')
-    mustInfo = updateRules[pathname.replace('/', '')]
+    rule = updateRules[pathname.replace('/', '')]
   }
 
   // 1.正则匹配规则
-  const { isSucceed, message } = regexRulesInfo(mustInfo as any, rawInfo)
+  const { isSucceed, message } = regexRulesInfo(rule, rawInfo)
   if (!isSucceed) {
     const error = new Error(errorType.REGEX_MISMATCH)
     return ctx.app.emit('error', error, ctx, message)
