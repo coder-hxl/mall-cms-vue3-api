@@ -20,8 +20,8 @@ const users: IRules = {
       message: '账号是必填内容~'
     },
     {
-      pattern: /^[a-z0-9]{2,20}$/,
-      message: '用户名必须是2~20个字母或者数字~'
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,30}$/,
+      message: '账号的长度必须在1~30中~'
     }
   ],
   realname: [
@@ -30,8 +30,8 @@ const users: IRules = {
       message: '真实姓名是必填内容~'
     },
     {
-      pattern: /^[a-z0-9]{1,60}$/,
-      message: '真实姓名必须是1~60个字母或者数字~'
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$/,
+      message: '真实姓名的长度必须在1~20中~'
     }
   ],
   password: [
@@ -51,7 +51,7 @@ const users: IRules = {
     },
     {
       pattern: /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/,
-      message: '校验手机号码: 必须以数字开头, 除数字外, 可含有“-”'
+      message: '必须以数字开头, 除数字外, 可含有“-”'
     }
   ],
   enable: [
@@ -66,15 +66,87 @@ const users: IRules = {
   ]
 }
 
-// const registerRules: IRegisterMust = {
-//   users: ['name', 'realname', 'password', 'cellphone', 'enable'],
-//   department: ['name'],
-//   menu: ['name', 'type'],
-//   role: ['name']
-// }
+const department: IRules = {
+  name: [
+    {
+      required: true,
+      message: '名字是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$/,
+      message: '名字的长度必须在1~20中~'
+    }
+  ],
+  parentId: {
+    pattern: /^[0-9]{1,}$/,
+    message: '上级部门Id必须为数字~'
+  }
+}
+
+const menu: IRules = {
+  name: [
+    {
+      required: true,
+      message: '名字是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,6}$/,
+      message: '名字的长度必须在1~6中~'
+    }
+  ],
+  type: [
+    {
+      required: true,
+      message: '类型是必填内容~'
+    },
+    {
+      pattern: /^1|2|3$/,
+      message: '类型只能是1, 2, 3其中一个~'
+    }
+  ]
+}
+
+const role: IRules = {
+  name: [
+    {
+      required: true,
+      message: '名字是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$/,
+      message: '名字的长度必须在1~20中~'
+    }
+  ]
+}
+
+const loginRules: IRules = {
+  name: [
+    {
+      required: true,
+      message: '账号是必填内容~'
+    },
+    {
+      pattern: /^[a-z0-9]{2,20}$/,
+      message: '用户名必须是2~20个字母或者数字~'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '密码是必填内容~'
+    },
+    {
+      pattern: /^[a-z0-9]{3,}$/,
+      message: '密码必须是3位以上的字母或者数字~'
+    }
+  ]
+}
 
 const createRules: IStore = {
-  users
+  users,
+  department,
+  menu,
+  role
 }
 
 const updateRules: IStore = {
@@ -84,8 +156,11 @@ const updateRules: IStore = {
       pattern: /^[a-z0-9]{3,}$/,
       message: '密码必须是3位以上的字母或者数字~'
     }
-  }
+  },
+  department,
+  menu,
+  role
 }
 
-export { createRules, updateRules }
+export { loginRules, createRules, updateRules }
 export type { IRules, IRulesItem }

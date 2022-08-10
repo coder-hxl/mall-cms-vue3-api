@@ -9,7 +9,7 @@ import { sha256Password } from '@/utils/passwordHandle'
 import { regexRulesInfo } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
-import { createRules, updateRules } from '@/constants/rules'
+import { loginRules, createRules, updateRules } from '@/constants/rules'
 import { PUBLIC_KEY } from '@/app/config'
 
 import type { IMiddleware } from './types'
@@ -17,12 +17,12 @@ import type { IMiddleware } from './types'
 const verifyLogin: IMiddleware = async (ctx, next) => {
   const { name, password } = ctx.request.body
 
-  // 1.验证是否为空
-  if (!name || !password) {
-    const error = new Error(errorType.NAME_OR_PASSWORD_IS_REQUIRED)
-    return ctx.app.emit('error', error, ctx)
+  // 1.验证是否符合规则
+  const { isSucceed, message } = regexRulesInfo(loginRules, { name, password })
+  if (!isSucceed) {
+    const error = new Error(errorType.REGEX_MISMATCH)
+    return ctx.app.emit('error', error, ctx, message)
   }
-
   // 2.验证是否存在
   const userResult = await userService.getUserByName(name)
   const user = userResult[0]
