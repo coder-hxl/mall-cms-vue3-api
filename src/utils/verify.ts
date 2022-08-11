@@ -1,14 +1,15 @@
 import { queryFns, queryKeys } from './config/verifyConfig'
 
-import type { IRules, IRulesItem } from '@/middleware/config/rulesConifg'
+import type { ITableRules, IRulesItem } from '@/middleware/config/rulesConifg'
+import type { tableName } from '@/service/types'
 
-interface ITableExistValueResult {
-  isChange: boolean
+interface IHasCUPremiseResult {
+  isHas: boolean
   key?: string
   value?: any
 }
 
-const regexRulesInfo = (rules: IRules, infos: any) => {
+const regexRulesInfo = (rules: ITableRules, infos: any) => {
   const result = {
     isSucceed: true,
     message: '成功~'
@@ -53,20 +54,20 @@ const regexRulesInfo = (rules: IRules, infos: any) => {
   return result
 }
 
-const verifyChangeTable = async (
-  table: string,
+const hasCUPremise = async (
+  table: tableName,
   info: any,
   type: 'default' | 'update' = 'default'
 ) => {
-  const result: ITableExistValueResult = {
-    isChange: true
+  const result: IHasCUPremiseResult = {
+    isHas: true
   }
 
   const queryFn = queryFns[table]
   const queryKey = queryKeys[table]
 
   function changeResult(queryResult: any, key: string) {
-    result.isChange = false
+    result.isHas = false
     result.key = key
     result.value = queryResult
     return result
@@ -74,7 +75,7 @@ const verifyChangeTable = async (
 
   for (const key of queryKey) {
     const queryResultArr = await queryFn(key, info[key] ?? '')
-    const queryResult = queryResultArr[0]
+    const queryResult: any = queryResultArr[0]
 
     if (type === 'default') {
       if (queryResult) {
@@ -90,4 +91,4 @@ const verifyChangeTable = async (
   return result
 }
 
-export { regexRulesInfo, verifyChangeTable }
+export { regexRulesInfo, hasCUPremise }

@@ -1,5 +1,6 @@
 type strOrNull = string | null
 type numOrNull = number | null
+type tableName = 'users' | 'department' | 'menu' | 'role'
 
 interface ITableCommon {
   id?: number
@@ -44,4 +45,4 @@ interface IRoleMenu extends ITableCommon {
   menuId?: number
 }
 
-export { ITableCommon, IUser, IDepartment, IMenu, IRole, IRoleMenu }
+export { tableName, ITableCommon, IUser, IDepartment, IMenu, IRole, IRoleMenu }

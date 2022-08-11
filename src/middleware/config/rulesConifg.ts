@@ -4,16 +4,18 @@ interface IRulesItem {
   message?: string
 }
 
-interface IRules {
+interface ITableRules {
   [key: string]: IRulesItem | IRulesItem[]
 }
 
 interface IStore {
-  users: IRules
-  [key: string]: IRules
+  users: ITableRules
+  department: ITableRules
+  menu: ITableRules
+  role: ITableRules
 }
 
-const users: IRules = {
+const users: ITableRules = {
   name: [
     {
       required: true,
@@ -66,7 +68,7 @@ const users: IRules = {
   ]
 }
 
-const department: IRules = {
+const department: ITableRules = {
   name: [
     {
       required: true,
@@ -79,7 +81,7 @@ const department: IRules = {
   ]
 }
 
-const menu: IRules = {
+const menu: ITableRules = {
   name: [
     {
       required: true,
@@ -102,7 +104,7 @@ const menu: IRules = {
   ]
 }
 
-const role: IRules = {
+const role: ITableRules = {
   name: [
     {
       required: true,
@@ -117,28 +119,7 @@ const role: IRules = {
 
 // ------------------------------------------------------------------------
 
-const loginRules: IRules = {
-  name: [
-    {
-      required: true,
-      message: '账号是必填内容~'
-    },
-    {
-      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,30}$/,
-      message: '账号的长度必须在1~30中~'
-    }
-  ],
-  password: [
-    {
-      required: true,
-      message: '密码是必填内容~'
-    },
-    {
-      pattern: /^[a-z0-9]{3,}$/,
-      message: '密码必须是3位以上的字母或者数字~'
-    }
-  ]
-}
+const loginRules: ITableRules = { name: users.name, password: users.password }
 
 const createRules: IStore = {
   users,
@@ -161,4 +142,4 @@ const updateRules: IStore = {
 }
 
 export { loginRules, createRules, updateRules }
-export type { IRules, IRulesItem }
+export type { ITableRules, IRulesItem }

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 import { sha256Password } from '@/utils/passwordHandle'
-import { regexRulesInfo, verifyChangeTable } from '@/utils/verify'
+import { regexRulesInfo, hasCUPremise } from '@/utils/verify'
 
 import errorType from '@/constants/errorType'
 import { PUBLIC_KEY } from '@/app/config'
@@ -9,6 +9,8 @@ import { loginRules, createRules, updateRules } from './config/rulesConifg'
 import forbidHandleIds from './config/forbidConfig'
 
 import type { IMiddleware } from './types'
+import type { tableName } from '@/service/types'
+import type { ITableRules } from './config/rulesConifg'
 
 const verifyLogin: IMiddleware = async (ctx, next) => {
   const { name, password } = ctx.request.body
@@ -21,8 +23,8 @@ const verifyLogin: IMiddleware = async (ctx, next) => {
   }
 
   // 2.验证名字是否存在
-  const result = await verifyChangeTable('users', { name })
-  if (result.isChange) {
+  const result = await hasCUPremise('users', { name })
+  if (result.isHas) {
     const error = new Error(errorType.NAME_IS_EXISTS)
     return ctx.app.emit('error', error, ctx)
   }
@@ -66,18 +68,20 @@ const verifyAuth: IMiddleware = async (ctx, next) => {
 }
 
 const verifyCUInfo: IMiddleware = async (ctx, next) => {
-  let tableName, rule
+  let tableName: tableName, rule: ITableRules
   const rawInfo = ctx.request.body
 
   const paramsKey = Object.keys(ctx.params)[0]
   const isCreate = !paramsKey
   // 注册/更新
   if (isCreate) {
-    tableName = ctx.URL.pathname.replace('/', '')
+    tableName = ctx.URL.pathname.replace('/', '') as tableName
     rule = createRules[tableName]
   } else {
     const subStr = `/${ctx.params[paramsKey]}`
-    tableName = ctx.URL.pathname.replace('/', '').replace(subStr, '')
+    tableName = ctx.URL.pathname
+      .replace('/', '')
+      .replace(subStr, '') as tableName
     rule = updateRules[tableName]
   }
 
@@ -88,12 +92,12 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
     return ctx.app.emit('error', error, ctx, message)
   }
 
-  // 2.验证是否可以改变数据
+  // 2.是否可以 注册/更新 表
   const result = isCreate
-    ? await verifyChangeTable(tableName, rawInfo)
-    : await verifyChangeTable(tableName, rawInfo, 'update')
+    ? await hasCUPremise(tableName, rawInfo)
+    : await hasCUPremise(tableName, rawInfo, 'update')
 
-  if (!result.isChange) {
+  if (!result.isHas) {
     const key = result.key
 
     if (key === 'name') {
@@ -111,7 +115,9 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
 const verifyDelete: IMiddleware = async (ctx, next) => {
   const paramsKey = Object.keys(ctx.params)[0]
   const id = parseFloat(ctx.params[paramsKey])
-  const tableName = ctx.URL.pathname.replace('/', '').replace(`/${id}`, '')
+  const tableName = ctx.URL.pathname
+    .replace('/', '')
+    .replace(`/${id}`, '') as tableName
   const forbidHandleId = forbidHandleIds[tableName]
 
   if (forbidHandleId.includes(id)) {

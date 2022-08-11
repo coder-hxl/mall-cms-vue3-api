@@ -3,7 +3,6 @@ interface IForbidHandleIds {
   menu: number[]
   role: number[]
   department: number[]
-  [key: string]: number[]
 }
 
 const forbidHandleIds: IForbidHandleIds = {

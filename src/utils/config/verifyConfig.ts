@@ -3,14 +3,30 @@ import departmentService from '@/service/department/departmentService'
 import menuService from '@/service/menu/menuService'
 import roleService from '@/service/role/roleService'
 
-const queryFns: any = {
+import { IUser, IDepartment, IMenu, IRole } from '@/service/types'
+
+interface IQueryFns {
+  users: (key: string, value: string) => Promise<IUser[]>
+  department: (key: string, value: string) => Promise<IDepartment[]>
+  menu: (key: string, value: string) => Promise<IMenu[]>
+  role: (key: string, value: string) => Promise<IRole[]>
+}
+
+interface IQueryKeys {
+  users: string[]
+  department: string[]
+  menu: string[]
+  role: string[]
+}
+
+const queryFns: IQueryFns = {
   users: userService.getUserByAny,
   department: departmentService.getDepartmentByAny,
   menu: menuService.getMenuByAny,
   role: roleService.getRoleByAny
 }
 
-const queryKeys: any = {
+const queryKeys: IQueryKeys = {
   users: ['name'],
   department: ['name'],
   menu: ['name', 'url'],
