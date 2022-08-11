@@ -11,7 +11,7 @@ const userController: IUserController = {
     await userService.create(userInfo)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '创建用户成功~'
     }
   },
@@ -21,7 +21,7 @@ const userController: IUserController = {
     await userService.delete(userId)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '删除用户成功~'
     }
   },
@@ -32,7 +32,7 @@ const userController: IUserController = {
     await userService.update(userId, updateInfo)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '修改用户成功~'
     }
   },
@@ -42,7 +42,7 @@ const userController: IUserController = {
     const result = await userService.getUserByID(userId)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: result
     }
   },
@@ -62,7 +62,7 @@ const userController: IUserController = {
     )
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: {
         list: result,
         totalCount: result.length

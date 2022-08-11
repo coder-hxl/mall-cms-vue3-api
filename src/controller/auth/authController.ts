@@ -14,7 +14,7 @@ const authController: IAuthController = {
     })
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: {
         id,
         name,
@@ -24,7 +24,7 @@ const authController: IAuthController = {
   },
   async success(ctx, next) {
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '授权成功~'
     }
   }

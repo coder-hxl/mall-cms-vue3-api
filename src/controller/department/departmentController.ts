@@ -11,7 +11,7 @@ const departmentControll: IDepatmentController = {
     await departmentService.create(dInfo)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '创建部门成功~'
     }
   },
@@ -21,7 +21,7 @@ const departmentControll: IDepatmentController = {
     await departmentService.delete(departmentId)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '删除部门成功~'
     }
   },
@@ -32,7 +32,7 @@ const departmentControll: IDepatmentController = {
     await departmentService.update(departmentId, dInfo)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: '更新部门成功~'
     }
   },
@@ -42,7 +42,7 @@ const departmentControll: IDepatmentController = {
     const result = await departmentService.getDepartmentById(departmentId)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: result
     }
   },
@@ -62,7 +62,7 @@ const departmentControll: IDepatmentController = {
     )
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: {
         list: result,
         totalCount: result.length

@@ -11,7 +11,7 @@ const menuController: IMenuController = {
     await menuService.create(menuInfo)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: `创建${menuInfo.name}成功~`
     }
   },
@@ -21,7 +21,7 @@ const menuController: IMenuController = {
     await menuService.delete(menuId)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: `删除菜单成功~`
     }
   },
@@ -32,7 +32,7 @@ const menuController: IMenuController = {
     await menuService.update(menuId, menuInfo)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: `更新菜单成功~`
     }
   },
@@ -42,7 +42,7 @@ const menuController: IMenuController = {
     const result = await menuService.getMenuById(menuId)
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: result
     }
   },
@@ -62,7 +62,7 @@ const menuController: IMenuController = {
     )
 
     ctx.body = {
-      code: 0,
+      code: 200,
       data: {
         list: result,
         totalCount: result.length
