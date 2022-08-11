@@ -1,5 +1,5 @@
 const toString = (value: any) => {
-  return value.toString()
+  return value || value === 0 ? value.toString() : value
 }
 
 export { toString }

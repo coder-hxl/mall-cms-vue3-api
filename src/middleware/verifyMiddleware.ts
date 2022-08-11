@@ -59,12 +59,12 @@ const verifyAuth: IMiddleware = async (ctx, next) => {
     }) as any
 
     ctx.user = user
-
-    await next()
   } catch {
     const error = new Error(errorType.UNAUTHORIZATION)
-    ctx.app.emit('error', error, ctx)
+    return ctx.app.emit('error', error, ctx)
   }
+
+  await next()
 }
 
 const verifyCUInfo: IMiddleware = async (ctx, next) => {
