@@ -1,10 +1,16 @@
 import type { Middleware, DefaultState } from 'koa'
 import type { RouterParamContext } from '@koa/router'
 
-import type { IRole, IUser } from '@/service/types'
+import type { IRole } from '@/service/types'
+
+type ICUser = {
+  id: number
+  name: string
+  hasAvatar: boolean
+}
 
 interface IContext {
-  user?: IUser
+  user: ICUser
   role?: IRole
   menuList?: number[]
 }

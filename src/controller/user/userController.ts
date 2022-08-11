@@ -1,6 +1,10 @@
+import fs from 'node:fs'
+
 import userService from '@/service/user/userService'
+import fileService from '@/service/file/fileService'
 
 import { toString } from '@/utils/transition'
+import { AVATAR_PATH } from '@/constants/filePath'
 
 import type { IUserController } from './types'
 
@@ -68,6 +72,15 @@ const userController: IUserController = {
         totalCount: result.length
       }
     }
+  },
+  async avatarInfo(ctx, next) {
+    const { userId } = ctx.params
+
+    const result = await fileService.getAvatartByUserId(userId)
+
+    // 设置类型并返回内容
+    ctx.response.set('content-Type', result.mimetype ?? '')
+    ctx.body = fs.createReadStream(`${AVATAR_PATH}/${result.filename}`)
   }
 }
 

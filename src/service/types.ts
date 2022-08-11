@@ -16,6 +16,7 @@ interface IUser extends ITableCommon {
   enable?: number
   departmentId?: number
   roleId?: number
+  avatarUrl?: string
 }
 
 interface IDepartment extends ITableCommon {
@@ -45,4 +46,20 @@ interface IRoleMenu extends ITableCommon {
   menuId?: number
 }
 
-export { tableName, ITableCommon, IUser, IDepartment, IMenu, IRole, IRoleMenu }
+interface IAvatar extends ITableCommon {
+  filename?: string
+  mimetype?: string
+  size?: number
+  userId?: number
+}
+
+export {
+  tableName,
+  ITableCommon,
+  IUser,
+  IDepartment,
+  IMenu,
+  IRole,
+  IRoleMenu,
+  IAvatar
+}

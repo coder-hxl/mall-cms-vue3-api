@@ -42,7 +42,7 @@ const userService: IUserService = {
   async getUserByID(userId) {
     const statement = `
       SELECT
-        u.id, u.name, u.realname, u.cellphone, u.enable, u.createAt, u.updateAt,
+        u.id, u.name, u.realname, u.cellphone, u.enable, u.createAt, u.updateAt, u.avatarUrl,
       	JSON_OBJECT(
           'id', r.id, 'name', r.name, 'intro', r.intro, 'createAt', r.createAt,'updateAt', r.updateAt
         ) role,

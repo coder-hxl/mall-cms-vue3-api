@@ -14,6 +14,7 @@ const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, './key/public.key'))
 export { PRIVATE_KEY, PUBLIC_KEY }
 
 export const {
+  APP_HOST,
   APP_PORT,
   MYSQL_HOST,
   MYSQL_PORT,

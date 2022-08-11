@@ -13,16 +13,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/multer": "^3.0.0",
     "@koa/router": "^12.0.0",
     "dotenv": "^16.0.1",
+    "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-body": "^5.0.0",
+    "multer": "1.4.5-lts.1",
     "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.8",
     "@types/koa": "^2.13.5",
+    "@types/koa__multer": "^2.0.4",
     "@types/koa__router": "^8.0.11",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",

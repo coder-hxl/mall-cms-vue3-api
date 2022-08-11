@@ -29,4 +29,7 @@ userRouter.patch(
 userRouter.get('/:userId', verifyAuth, userController.detail)
 userRouter.post('/list', verifyAuth, userController.list)
 
+// 获取头像
+userRouter.get('/:userId/avatar', userController.avatarInfo)
+
 export default userRouter
