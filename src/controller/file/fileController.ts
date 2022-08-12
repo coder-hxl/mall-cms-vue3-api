@@ -18,8 +18,6 @@ const fileController: IFileController = {
       await fileService.updateAvatar(userId, filename, mimetype, size)
     }
 
-    console.log(filename, mimetype, size)
-
     // 3.添加图像url到用户表中
     const avatarUrl = `${APP_HOST}:${APP_PORT}/users/${userId}/avatar`
     await userService.update(userId, { avatarUrl })
