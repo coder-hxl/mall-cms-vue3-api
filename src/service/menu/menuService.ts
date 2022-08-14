@@ -4,7 +4,7 @@ import mapSqlStatement from '@/utils/mapSqlStatement'
 import type { IMenuService } from './types'
 
 const getField = (TName: string) => {
-  return `'id', ${TName}.id, 'name', ${TName}.name, 'type', ${TName}.type, 'icon', ${TName}.icon, 'parentId', ${TName}.parentId, 'url', ${TName}.url, 'permission', ${TName}.permission, 'createAt', ${TName}.createAt,'updateAt', ${TName}.updateAt`
+  return `'id', ${TName}.id, 'name', ${TName}.name, 'type', ${TName}.type, 'sort', ${TName}.sort, 'icon', ${TName}.icon, 'parentId', ${TName}.parentId, 'url', ${TName}.url, 'permission', ${TName}.permission, 'createAt', ${TName}.createAt,'updateAt', ${TName}.updateAt`
 }
 
 const menuService: IMenuService = {
