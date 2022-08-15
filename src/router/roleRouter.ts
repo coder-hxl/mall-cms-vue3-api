@@ -3,7 +3,7 @@ import Router from '@koa/router'
 import {
   verifyAuth,
   verifyCUInfo,
-  verifyDelete
+  verifyForbid
 } from '@/middleware/verifyMiddleware'
 import { classify } from '@/middleware/roleMiddlerware'
 import roleController from '@/controller/role/roleController'
@@ -11,11 +11,11 @@ import roleController from '@/controller/role/roleController'
 const roleRouter = new Router({ prefix: '/role' })
 
 roleRouter.post('/', verifyAuth, verifyCUInfo, classify, roleController.create)
-roleRouter.delete('/:roleId', verifyAuth, verifyDelete, roleController.delete)
+roleRouter.delete('/:roleId', verifyAuth, verifyForbid, roleController.delete)
 roleRouter.patch(
   '/:roleId',
   verifyAuth,
-  verifyDelete,
+  verifyForbid,
   verifyCUInfo,
   classify,
   roleController.update

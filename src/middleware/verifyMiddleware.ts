@@ -9,8 +9,8 @@ import { loginRules, createRules, updateRules } from './config/rulesConifg'
 import forbidHandleIds from './config/forbidConfig'
 
 import type { IMiddleware } from './types'
-import type { tableName } from '@/service/types'
-import type { ITableRules } from './config/rulesConifg'
+import type { ITableRules, rulesTableName } from './config/rulesConifg'
+import type { forbidTableName } from './config/forbidConfig'
 
 const verifyLogin: IMiddleware = async (ctx, next) => {
   const { name, password } = ctx.request.body
@@ -68,20 +68,20 @@ const verifyAuth: IMiddleware = async (ctx, next) => {
 }
 
 const verifyCUInfo: IMiddleware = async (ctx, next) => {
-  let tableName: tableName, rule: ITableRules
+  let tableName: rulesTableName, rule: ITableRules
   const rawInfo = ctx.request.body
 
   const paramsKey = Object.keys(ctx.params)[0]
   const isCreate = !paramsKey
   // 注册/更新
   if (isCreate) {
-    tableName = ctx.URL.pathname.replace('/', '') as tableName
+    tableName = ctx.URL.pathname.replace('/', '') as rulesTableName
     rule = createRules[tableName]
   } else {
     const subStr = `/${ctx.params[paramsKey]}`
     tableName = ctx.URL.pathname
       .replace('/', '')
-      .replace(subStr, '') as tableName
+      .replace(subStr, '') as rulesTableName
     rule = updateRules[tableName]
   }
 
@@ -112,12 +112,12 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
   await next()
 }
 
-const verifyDelete: IMiddleware = async (ctx, next) => {
+const verifyForbid: IMiddleware = async (ctx, next) => {
   const paramsKey = Object.keys(ctx.params)[0]
   const id = parseFloat(ctx.params[paramsKey])
   const tableName = ctx.URL.pathname
     .replace('/', '')
-    .replace(`/${id}`, '') as tableName
+    .replace(`/${id}`, '') as forbidTableName
   const forbidHandleId = forbidHandleIds[tableName]
 
   if (forbidHandleId.includes(id)) {
@@ -128,4 +128,4 @@ const verifyDelete: IMiddleware = async (ctx, next) => {
   await next()
 }
 
-export { verifyLogin, verifyAuth, verifyCUInfo, verifyDelete }
+export { verifyLogin, verifyAuth, verifyCUInfo, verifyForbid }

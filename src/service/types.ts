@@ -1,6 +1,6 @@
 type strOrNull = string | null
 type numOrNull = number | null
-type tableName = 'users' | 'department' | 'menu' | 'role'
+type tableName = 'users' | 'department' | 'menu' | 'role' | 'avatar'
 
 interface ITableCommon {
   id?: number

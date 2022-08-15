@@ -3,18 +3,18 @@ import Router from '@koa/router'
 import {
   verifyAuth,
   verifyCUInfo,
-  verifyDelete
+  verifyForbid
 } from '@/middleware/verifyMiddleware'
 import menuController from '@/controller/menu/menuController'
 
 const menuRouter = new Router({ prefix: '/menu' })
 
 menuRouter.post('/', verifyAuth, verifyCUInfo, menuController.create)
-menuRouter.delete('/:menuId', verifyAuth, verifyDelete, menuController.delete)
+menuRouter.delete('/:menuId', verifyAuth, verifyForbid, menuController.delete)
 menuRouter.patch(
   '/:menuId',
   verifyAuth,
-  verifyDelete,
+  verifyForbid,
   verifyCUInfo,
   menuController.update
 )

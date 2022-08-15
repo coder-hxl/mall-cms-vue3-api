@@ -64,8 +64,10 @@ const userService: IUserService = {
 
     const statement = `
       SELECT
-    	  u.id, u.name, u.realname, u.cellphone, u.enable, u.departmentId, u.roleId, u.createAt, u.updateAt
+    	  u.id, u.name, u.realname, u.cellphone, u.enable, d.name department, r.name role, u.createAt, u.updateAt
       FROM users u
+      LEFT JOIN department d ON d.id = u.departmentId
+      LEFT JOIN role r ON r.id = u.roleId
       ${likes.length ? `WHERE ${likes.join(' ')}` : ''}
       ${limit.length ? 'LIMIT ?, ?' : ''};
     `

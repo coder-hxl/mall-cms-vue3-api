@@ -1,3 +1,5 @@
+type forbidTableName = 'users' | 'department' | 'menu' | 'role'
+
 interface IForbidHandleIds {
   users: number[]
   menu: number[]
@@ -17,3 +19,5 @@ const forbidHandleIds: IForbidHandleIds = {
 }
 
 export default forbidHandleIds
+
+export type { forbidTableName }

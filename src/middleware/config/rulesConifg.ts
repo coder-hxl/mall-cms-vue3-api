@@ -1,3 +1,5 @@
+type rulesTableName = 'users' | 'department' | 'menu' | 'role'
+
 interface IRulesItem {
   required?: boolean
   pattern?: RegExp
@@ -13,6 +15,7 @@ interface IStore {
   department: ITableRules
   menu: ITableRules
   role: ITableRules
+  avatar?: ITableRules
 }
 
 const users: ITableRules = {
@@ -142,4 +145,4 @@ const updateRules: IStore = {
 }
 
 export { loginRules, createRules, updateRules }
-export type { ITableRules, IRulesItem }
+export type { ITableRules, IRulesItem, rulesTableName }

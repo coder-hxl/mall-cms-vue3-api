@@ -1,7 +1,10 @@
 import { queryFns, queryKeys } from './config/verifyConfig'
 
-import type { ITableRules, IRulesItem } from '@/middleware/config/rulesConifg'
-import type { tableName } from '@/service/types'
+import type {
+  ITableRules,
+  IRulesItem,
+  rulesTableName
+} from '@/middleware/config/rulesConifg'
 
 interface IHasCUPremiseResult {
   isHas: boolean
@@ -55,16 +58,13 @@ const regexRulesInfo = (rules: ITableRules, infos: any) => {
 }
 
 const hasCUPremise = async (
-  table: tableName,
+  table: rulesTableName,
   info: any,
   type: 'default' | 'update' = 'default'
 ) => {
   const result: IHasCUPremiseResult = {
     isHas: true
   }
-
-  const queryFn = queryFns[table]
-  const queryKey = queryKeys[table]
 
   function changeResult(queryResult: any, key: string) {
     result.isHas = false
@@ -73,17 +73,22 @@ const hasCUPremise = async (
     return result
   }
 
-  for (const key of queryKey) {
-    const queryResultArr = await queryFn(key, info[key] ?? '')
-    const queryResult: any = queryResultArr[0]
+  const queryFn = queryFns[table]
+  const queryKey = queryKeys[table]
 
-    if (type === 'default') {
-      if (queryResult) {
-        return changeResult(queryResult, key)
-      }
-    } else {
-      if (queryResult && queryResult[key] !== info[key]) {
-        return changeResult(queryResult, key)
+  if (queryFn && queryKey) {
+    for (const key of queryKey) {
+      const queryResultArr = await queryFn(key, info[key] ?? '')
+      const queryResult: any = queryResultArr[0]
+
+      if (type === 'default') {
+        if (queryResult) {
+          return changeResult(queryResult, key)
+        }
+      } else {
+        if (queryResult && queryResult[key] !== info[key]) {
+          return changeResult(queryResult, key)
+        }
       }
     }
   }

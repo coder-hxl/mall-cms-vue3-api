@@ -3,7 +3,7 @@ import Router from '@koa/router'
 import {
   verifyAuth,
   verifyCUInfo,
-  verifyDelete
+  verifyForbid
 } from '@/middleware/verifyMiddleware'
 import departmentControll from '@/controller/department/departmentController'
 
@@ -13,13 +13,13 @@ departmentRouter.post('/', verifyAuth, verifyCUInfo, departmentControll.create)
 departmentRouter.delete(
   '/:departmentId',
   verifyAuth,
-  verifyDelete,
+  verifyForbid,
   departmentControll.delete
 )
 departmentRouter.patch(
   '/:departmentId',
   verifyAuth,
-  verifyDelete,
+  verifyForbid,
   verifyCUInfo,
   departmentControll.update
 )
