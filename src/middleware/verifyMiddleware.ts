@@ -23,7 +23,7 @@ const verifyLogin: IMiddleware = async (ctx, next) => {
   }
 
   // 2.验证名字是否存在
-  const result = await hasCUPremise('users', { name })
+  const result = await hasCUPremise('users', 'create', { name })
   if (result.isHas) {
     const error = new Error(errorType.NAME_IS_EXISTS)
     return ctx.app.emit('error', error, ctx)
@@ -72,13 +72,14 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
   const rawInfo = ctx.request.body
 
   const paramsKey = Object.keys(ctx.params)[0]
+  const infoId = ctx.params[paramsKey]
   const isCreate = !paramsKey
   // 注册/更新
   if (isCreate) {
     tableName = ctx.URL.pathname.replace('/', '') as rulesTableName
     rule = createRules[tableName]
   } else {
-    const subStr = `/${ctx.params[paramsKey]}`
+    const subStr = `/${infoId}`
     tableName = ctx.URL.pathname
       .replace('/', '')
       .replace(subStr, '') as rulesTableName
@@ -94,8 +95,11 @@ const verifyCUInfo: IMiddleware = async (ctx, next) => {
 
   // 2.是否可以 注册/更新 表
   const result = isCreate
-    ? await hasCUPremise(tableName, rawInfo)
-    : await hasCUPremise(tableName, rawInfo, 'update')
+    ? await hasCUPremise(tableName, 'create', rawInfo)
+    : await hasCUPremise(tableName, 'update', {
+        id: infoId,
+        ...rawInfo
+      })
 
   if (!result.isHas) {
     const key = result.key

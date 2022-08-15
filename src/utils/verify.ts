@@ -59,8 +59,8 @@ const regexRulesInfo = (rules: ITableRules, infos: any) => {
 
 const hasCUPremise = async (
   table: rulesTableName,
-  info: any,
-  type: 'default' | 'update' = 'default'
+  type: 'create' | 'update',
+  info: any
 ) => {
   const result: IHasCUPremiseResult = {
     isHas: true
@@ -76,17 +76,17 @@ const hasCUPremise = async (
   const queryFn = queryFns[table]
   const queryKey = queryKeys[table]
 
-  if (queryFn && queryKey) {
-    for (const key of queryKey) {
-      const queryResultArr = await queryFn(key, info[key] ?? '')
-      const queryResult: any = queryResultArr[0]
+  for (const key of queryKey) {
+    const queryResultArr = await queryFn(key, info[key] ?? '')
+    const queryResult: any = queryResultArr[0]
 
-      if (type === 'default') {
-        if (queryResult) {
-          return changeResult(queryResult, key)
-        }
+    if (queryResult) {
+      if (type === 'create') {
+        return changeResult(queryResult, key)
       } else {
-        if (queryResult && queryResult[key] !== info[key]) {
+        const infoResultArr = await queryFn('id', info.id ?? '')
+        const infoResult = infoResultArr[0]
+        if (queryResult[key] == info[key] && queryResult.id !== infoResult.id) {
           return changeResult(queryResult, key)
         }
       }
