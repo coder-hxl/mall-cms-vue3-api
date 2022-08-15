@@ -40,7 +40,7 @@ const roleService: IRoleService = {
 
     // LIKE 和 GROUP BY 无法同时使用
     const sqlLike = likes.length ? `WHERE ${likes.join()}` : 'GROUP BY r.id'
-    const sqlLimit = limit.length ? `LIMIT ${limit.join()}` : ''
+    const sqlLimit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
        r.id, r.name, r.intro, r.createAt, r.updateAt,
@@ -54,7 +54,7 @@ const roleService: IRoleService = {
       ${sqlLimit};
     `
 
-    const [result] = await pool.execute<any>(statement, [limit])
+    const [result] = await pool.execute<any>(statement, limit)
 
     return result
   },

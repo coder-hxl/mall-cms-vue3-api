@@ -5,6 +5,7 @@ interface IForbidHandleIds {
   menu: number[]
   role: number[]
   department: number[]
+  category: number[]
 }
 
 const forbidHandleIds: IForbidHandleIds = {
@@ -15,7 +16,8 @@ const forbidHandleIds: IForbidHandleIds = {
     42
   ],
   role: [1, 2, 3],
-  department: [1, 2, 3, 4, 5]
+  department: [1, 2, 3, 4, 5],
+  category: [1, 2, 3]
 }
 
 export default forbidHandleIds

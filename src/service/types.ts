@@ -53,6 +53,8 @@ interface IAvatar extends ITableCommon {
   userId?: number
 }
 
+interface ICategory extends ITableCommon
+
 export {
   tableName,
   ITableCommon,
@@ -61,5 +63,6 @@ export {
   IMenu,
   IRole,
   IRoleMenu,
-  IAvatar
+  IAvatar,
+  ICategory
 }
