@@ -76,18 +76,23 @@ const hasCUPremise = async (
   const queryFn = queryFns[table]
   const queryKey = queryKeys[table]
 
-  for (const key of queryKey) {
-    const queryResultArr = await queryFn(key, info[key] ?? '')
-    const queryResult: any = queryResultArr[0]
+  if (queryFn && queryKey) {
+    for (const key of queryKey) {
+      const queryResultArr = await queryFn(key, info[key] ?? '')
+      const queryResult: any = queryResultArr[0]
 
-    if (queryResult) {
-      if (type === 'create') {
-        return changeResult(queryResult, key)
-      } else {
-        const infoResultArr = await queryFn('id', info.id ?? '')
-        const infoResult = infoResultArr[0]
-        if (queryResult[key] == info[key] && queryResult.id !== infoResult.id) {
+      if (queryResult) {
+        if (type === 'create') {
           return changeResult(queryResult, key)
+        } else {
+          const infoResultArr = await queryFn('id', info.id ?? '')
+          const infoResult = infoResultArr[0]
+          if (
+            queryResult[key] == info[key] &&
+            queryResult.id !== infoResult.id
+          ) {
+            return changeResult(queryResult, key)
+          }
         }
       }
     }

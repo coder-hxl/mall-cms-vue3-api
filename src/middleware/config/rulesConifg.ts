@@ -1,4 +1,10 @@
-type rulesTableName = 'users' | 'department' | 'menu' | 'role' | 'category'
+type rulesTableName =
+  | 'users'
+  | 'department'
+  | 'menu'
+  | 'role'
+  | 'category'
+  | 'goods'
 
 interface IRulesItem {
   required?: boolean
@@ -16,6 +22,7 @@ interface IStore {
   menu: ITableRules
   role: ITableRules
   category: ITableRules
+  goods: ITableRules
 }
 
 const users: ITableRules = {
@@ -133,6 +140,49 @@ const category: ITableRules = {
   ]
 }
 
+const goods: ITableRules = {
+  name: [
+    {
+      required: true,
+      message: '名字是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9+]{1,100}$/,
+      message: '名字的长度必须在1~100中~'
+    }
+  ],
+  description: [
+    {
+      required: true,
+      message: '描述是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9+]{1,255}$/,
+      message: '描述的长度必须在1~255中~'
+    }
+  ],
+  enable: [
+    {
+      required: true,
+      message: '状态是必填内容~'
+    },
+    {
+      pattern: /^0|1$/,
+      message: '请检查状态是否正确填写~'
+    }
+  ],
+  address: [
+    {
+      required: true,
+      message: '地址是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,255}$/,
+      message: '地址的长度必须在1~255中~'
+    }
+  ]
+}
+
 // ------------------------------------------------------------------------
 
 const loginRules: ITableRules = { name: users.name, password: users.password }
@@ -142,7 +192,8 @@ const createRules: IStore = {
   department,
   menu,
   role,
-  category
+  category,
+  goods
 }
 
 const updateRules: IStore = {
@@ -156,7 +207,8 @@ const updateRules: IStore = {
   department,
   menu,
   role,
-  category
+  category,
+  goods
 }
 
 export { loginRules, createRules, updateRules }
