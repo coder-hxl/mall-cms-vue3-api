@@ -39,7 +39,7 @@ const categoryService: ICategoryService = {
 
     return result
   },
-  async getCategorByAny(key, value) {
+  async getCategoryByAny(key, value) {
     const statement = `SELECT * FROM category WHERE ${key} = ?;`
 
     const [result] = await pool.execute<any[]>(statement, [value])

@@ -5,7 +5,7 @@ interface ICategoryService {
   delete(id: string): Promise<any>
   update(id: string, name: string): Promise<any>
   getCategoryList(like: ICategory, limit: string[]): Promise<ICategory[]>
-  getCategorByAny(key: string, value: any): Promise<ICategory[]>
+  getCategoryByAny(key: string, value: any): Promise<ICategory[]>
 }
 
 export default ICategoryService

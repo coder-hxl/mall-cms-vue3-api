@@ -1,15 +1,16 @@
 import roleService from '@/service/role/roleService'
 import roleMenuService from '@/service/roleMenu/roleMenuService'
 
-import { toString } from '@/utils/transition'
+import { toString, splitObj } from '@/utils/transition'
 import { menuListHandle } from '@/utils/menuHandle'
 
 import type { IRoleController } from './types'
+import { IRole } from '@/service/types'
 
 const roleController: IRoleController = {
   async create(ctx, next) {
-    const roleInfo = ctx.role || {}
-    const menuList = ctx.menuList || []
+    const info = ctx.request.body
+    const [roleInfo, { menuList }]: [IRole, any] = splitObj(info, ['menuList'])
 
     const roleResult = await roleService.create(roleInfo)
 
@@ -34,8 +35,8 @@ const roleController: IRoleController = {
   },
   async update(ctx, next) {
     const { roleId } = ctx.params
-    const roleInfo = ctx.role
-    const menuList = ctx.menuList
+    const info = ctx.request.body
+    const [roleInfo, { menuList }]: [IRole, any] = splitObj(info, ['menuList'])
 
     // 1.处理 role 角色表
     if (roleInfo) {

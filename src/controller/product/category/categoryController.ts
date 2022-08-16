@@ -39,7 +39,7 @@ const categoryController: ICategoryController = {
   async detail(ctx, next) {
     const { categoryId } = ctx.params
 
-    const resultArr = await categoryService.getCategorByAny('id', categoryId)
+    const resultArr = await categoryService.getCategoryByAny('id', categoryId)
     const category = resultArr[0]
 
     ctx.body = {

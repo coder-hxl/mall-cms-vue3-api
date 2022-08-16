@@ -11,8 +11,6 @@ type ICUser = {
 
 interface IContext {
   user: ICUser
-  role?: IRole
-  menuList?: number[]
 }
 
 interface IResponseBody {
