@@ -4,12 +4,12 @@ type tableName = 'users' | 'department' | 'menu' | 'role' | 'avatar'
 
 interface ITableCommon {
   id?: number
-  name?: string
   createAt?: string
   updateAt?: string
 }
 
 interface IUser extends ITableCommon {
+  name?: string
   realname?: string
   password?: string
   cellphone?: number
@@ -20,11 +20,13 @@ interface IUser extends ITableCommon {
 }
 
 interface IDepartment extends ITableCommon {
+  name?: string
   parentId?: number
   leader?: string
 }
 
 interface IMenu extends ITableCommon {
+  name?: string
   type?: number
   icon?: strOrNull
   parentId?: numOrNull
@@ -36,8 +38,8 @@ interface IMenu extends ITableCommon {
 }
 
 interface IRole extends ITableCommon {
+  name?: string
   intro?: string
-
   menuList?: IMenu[]
 }
 
@@ -53,7 +55,27 @@ interface IAvatar extends ITableCommon {
   userId?: number
 }
 
-interface ICategory extends ITableCommon
+interface ICategory extends ITableCommon {
+  name?: string
+}
+
+interface IGoods extends ITableCommon {
+  name?: string
+  oldPrice?: number
+  newPrice?: number
+  description?: string
+  enable?: number
+  imgUrl?: string
+  inverntoryCount?: number
+  saleCount?: number
+  favorCount?: number
+  address?: string
+}
+
+interface IRGoodsCategory extends ITableCommon {
+  goodsId?: number
+  categoryId?: number
+}
 
 export {
   tableName,
@@ -64,5 +86,7 @@ export {
   IRole,
   IRoleMenu,
   IAvatar,
-  ICategory
+  ICategory,
+  IGoods,
+  IRGoodsCategory
 }
