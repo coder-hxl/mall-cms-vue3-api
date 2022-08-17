@@ -5,7 +5,6 @@ import { toString, splitObj } from '@/utils/transition'
 
 import type IGoodsController from './types'
 import type { IGoods } from '@/service/types'
-import categoryService from '@/service/product/category/categoryService'
 
 const goodsController: IGoodsController = {
   async create(ctx, next) {
@@ -35,7 +34,7 @@ const goodsController: IGoodsController = {
   async update(ctx, next) {
     const { goodsId } = ctx.params
     const rawInfo = ctx.request.body
-    const [goods, { categoryIds }]: [IGoods, any] = splitObj(rawInfo, [
+    const [goods, { categoryIds = [] }]: [IGoods, any] = splitObj(rawInfo, [
       'categoryIds'
     ])
 

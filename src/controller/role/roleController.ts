@@ -36,7 +36,9 @@ const roleController: IRoleController = {
   async update(ctx, next) {
     const { roleId } = ctx.params
     const info = ctx.request.body
-    const [roleInfo, { menuList }]: [IRole, any] = splitObj(info, ['menuList'])
+    const [roleInfo, { menuList = [] }]: [IRole, any] = splitObj(info, [
+      'menuList'
+    ])
 
     // 1.处理 role 角色表
     if (roleInfo) {
@@ -79,9 +81,10 @@ const roleController: IRoleController = {
     }
   },
   async list(ctx, next) {
-    const offset = toString(ctx.request.body.offset)
-    const size = toString(ctx.request.body.size)
-    const like = ctx.request.body
+    const info = ctx.request.body
+    const offset = toString(info.offset)
+    const size = toString(info.size)
+    const [like] = splitObj(info, ['offset', 'size']) as [IRole, any]
 
     let hasLimit = false
     if (offset && size) {
