@@ -80,7 +80,7 @@ const goodsController: IGoodsController = {
     const info = ctx.request.body
     const offset = toString(info.offset)
     const size = toString(info.size)
-    const [link] = splitObj(info, ['offset', 'size']) as [IGoods, any]
+    const [like] = splitObj(info, ['offset', 'size']) as [IGoods, any]
 
     let hasLimit = false
     if (offset && size) {
@@ -88,7 +88,7 @@ const goodsController: IGoodsController = {
     }
 
     const result = await goodsService.getGoodsList(
-      link,
+      like,
       hasLimit ? [offset, size] : []
     )
 

@@ -151,6 +151,16 @@ const goods: ITableRules = {
       message: '名字的长度必须在1~100中~'
     }
   ],
+  newPrice: [
+    {
+      required: true,
+      message: '现价格是必填内容~'
+    },
+    {
+      pattern: /^[0-9]{1,}$/,
+      message: '价格只能是数字~'
+    }
+  ],
   description: [
     {
       required: true,
@@ -169,6 +179,46 @@ const goods: ITableRules = {
     {
       pattern: /^0|1$/,
       message: '请检查状态是否正确填写~'
+    }
+  ],
+  imgUrl: [
+    {
+      required: true,
+      message: '图片路径是必填内容~'
+    },
+    {
+      pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9+]{1,255}$/,
+      message: '描述的长度必须在1~255中~'
+    }
+  ],
+  inventoryCount: [
+    {
+      required: true,
+      message: '库存是必填内容~'
+    },
+    {
+      pattern: /^[0-9]{1,}$/,
+      message: '库存必须是数字~'
+    }
+  ],
+  saleCount: [
+    {
+      required: true,
+      message: '出售是必填内容~'
+    },
+    {
+      pattern: /^[0-9]{1,}$/,
+      message: '出售必须是数字~'
+    }
+  ],
+  favorCount: [
+    {
+      required: true,
+      message: '收藏是必填内容~'
+    },
+    {
+      pattern: /^[0-9]{1,}$/,
+      message: '收藏必须是数字~'
     }
   ],
   address: [

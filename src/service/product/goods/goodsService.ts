@@ -52,7 +52,7 @@ const goodsService: IGoodsService = {
   async getGoodsList(like, limit) {
     const likes = mapSqlStatement.like(like, 'g')
 
-    const sqlLike = likes.length ? `WHERE ${likes.join()}` : 'GROUP BY g.name'
+    const sqlLike = likes.length ? `WHERE ${likes.join()}` : 'GROUP BY g.id'
     const sqlLmit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
