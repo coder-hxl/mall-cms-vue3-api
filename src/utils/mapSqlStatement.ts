@@ -50,7 +50,7 @@ const mapSqlStatement = {
       if (key === 'createAt' || key === 'updateAt') {
         const sqlTime = `${TKey} >= '${value[0]}' AND ${TKey} <= '${value[1]}'`
         addLikes(sqlTime)
-      } else if (key !== 'offset' && key !== 'size') {
+      } else {
         const sqlLike = `${TKey} LIKE '%${value}%'`
         addLikes(sqlLike)
       }

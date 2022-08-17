@@ -1,6 +1,7 @@
 import menuService from '@/service/menu/menuService'
+import { IMenu } from '@/service/types'
 
-import { toString } from '@/utils/transition'
+import { toString, splitObj } from '@/utils/transition'
 
 import type { IMenuController } from './types'
 
@@ -47,9 +48,10 @@ const menuController: IMenuController = {
     }
   },
   async list(ctx, next) {
-    const offset = toString(ctx.request.body.offset)
-    const size = toString(ctx.request.body.size)
-    const like = ctx.request.body
+    const info = ctx.request.body
+    const offset = toString(info.offset)
+    const size = toString(info.size)
+    const [like] = splitObj(info, ['offset', 'size']) as [IMenu, any]
 
     let hasLimit = false
     if (offset && size) {

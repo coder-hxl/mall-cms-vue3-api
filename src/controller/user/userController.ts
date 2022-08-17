@@ -3,10 +3,11 @@ import fs from 'node:fs'
 import userService from '@/service/user/userService'
 import fileService from '@/service/file/fileService'
 
-import { toString } from '@/utils/transition'
+import { toString, splitObj } from '@/utils/transition'
 import { AVATAR_PATH } from '@/constants/filePath'
 
 import type { IUserController } from './types'
+import { IUser } from '@/service/types'
 
 const userController: IUserController = {
   async create(ctx, next) {
@@ -51,11 +52,12 @@ const userController: IUserController = {
     }
   },
   async list(ctx, next) {
-    const offset = toString(ctx.request.body.offset)
-    const size = toString(ctx.request.body.size)
-    const like = ctx.request.body
-    let hasLimit = false
+    const info = ctx.request.body
+    const offset = toString(info.offset)
+    const size = toString(info.size)
+    const [like] = splitObj(info, ['offset', 'size']) as [IUser, any]
 
+    let hasLimit = false
     if (offset && size) {
       hasLimit = true
     }

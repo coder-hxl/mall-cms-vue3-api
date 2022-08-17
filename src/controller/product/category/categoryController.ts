@@ -1,8 +1,9 @@
 import categoryService from '@/service/product/category/categoryService'
 
-import { toString } from '@/utils/transition'
+import { toString, splitObj } from '@/utils/transition'
 
 import type ICategoryController from './types'
+import { ICategory } from '@/service/types'
 
 const categoryController: ICategoryController = {
   async create(ctx, next) {
@@ -51,6 +52,7 @@ const categoryController: ICategoryController = {
     const info = ctx.request.body
     const offset = toString(info.offset)
     const size = toString(info.size)
+    const [like] = splitObj(info, ['offset', 'size']) as [ICategory, any]
 
     let hasLimit = false
     if (offset && size) {
@@ -58,7 +60,7 @@ const categoryController: ICategoryController = {
     }
 
     const result = await categoryService.getCategoryList(
-      info,
+      like,
       hasLimit ? [offset, size] : []
     )
 
