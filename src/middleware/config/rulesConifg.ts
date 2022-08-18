@@ -5,6 +5,7 @@ type rulesTableName =
   | 'role'
   | 'category'
   | 'goods'
+  | 'story'
 
 interface IRulesItem {
   required?: boolean
@@ -23,6 +24,7 @@ interface IStore {
   role: ITableRules
   category: ITableRules
   goods: ITableRules
+  story: ITableRules
 }
 
 const users: ITableRules = {
@@ -234,6 +236,15 @@ const goods: ITableRules = {
   ]
 }
 
+const story: ITableRules = {
+  content: [
+    {
+      required: true,
+      message: '内容是必填内容~'
+    }
+  ]
+}
+
 // ------------------------------------------------------------------------
 
 const loginRules: ITableRules = { name: users.name, password: users.password }
@@ -244,7 +255,8 @@ const createRules: IStore = {
   menu,
   role,
   category,
-  goods
+  goods,
+  story
 }
 
 const updateRules: IStore = {
@@ -259,7 +271,8 @@ const updateRules: IStore = {
   menu,
   role,
   category,
-  goods
+  goods,
+  story
 }
 
 export { loginRules, createRules, updateRules }

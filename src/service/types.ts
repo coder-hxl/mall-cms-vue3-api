@@ -1,6 +1,14 @@
 type strOrNull = string | null
 type numOrNull = number | null
-type tableName = 'users' | 'department' | 'menu' | 'role' | 'avatar'
+type tableName =
+  | 'users'
+  | 'department'
+  | 'menu'
+  | 'role'
+  | 'avatar'
+  | 'category'
+  | 'goods'
+  | 'story'
 
 interface ITableCommon {
   id?: number
@@ -77,6 +85,11 @@ interface IRGoodsCategory extends ITableCommon {
   categoryId?: number
 }
 
+interface IStory extends ITableCommon {
+  content?: string
+  userId?: number
+}
+
 export {
   tableName,
   ITableCommon,
@@ -88,5 +101,6 @@ export {
   IAvatar,
   ICategory,
   IGoods,
-  IRGoodsCategory
+  IRGoodsCategory,
+  IStory
 }

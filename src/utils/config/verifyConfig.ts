@@ -12,7 +12,8 @@ interface IQueryFns {
   menu: (key: string, value: string) => Promise<IMenu[]>
   role: (key: string, value: string) => Promise<IRole[]>
   category: (key: string, value: string) => Promise<ICategory[]>
-  goods: null
+  goods?: null
+  story?: null
 }
 
 interface IQueryKeys {
@@ -21,7 +22,8 @@ interface IQueryKeys {
   menu: string[]
   role: string[]
   category: string[]
-  goods: null
+  goods?: null
+  story?: null
 }
 
 const queryFns: IQueryFns = {
@@ -29,8 +31,7 @@ const queryFns: IQueryFns = {
   department: departmentService.getDepartmentByAny,
   menu: menuService.getMenuByAny,
   role: roleService.getRoleByAny,
-  category: categoryService.getCategorByAny,
-  goods: null
+  category: categoryService.getCategoryByAny
 }
 
 const queryKeys: IQueryKeys = {
@@ -38,8 +39,7 @@ const queryKeys: IQueryKeys = {
   department: ['name'],
   menu: ['name', 'url'],
   role: ['name'],
-  category: ['name'],
-  goods: null
+  category: ['name']
 }
 
 export { queryFns, queryKeys }

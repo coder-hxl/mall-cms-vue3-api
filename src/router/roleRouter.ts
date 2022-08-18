@@ -20,6 +20,6 @@ roleRouter.patch(
 )
 roleRouter.get('/:roleId', verifyAuth, roleController.detail)
 roleRouter.get('/:roleId/menu', verifyAuth, roleController.roleMenu)
-roleRouter.post('/:list', verifyAuth, roleController.list)
+roleRouter.post('/list', verifyAuth, roleController.list)
 
 export default roleRouter
