@@ -5,11 +5,11 @@ import { ResultSetHeader } from 'mysql2'
 import type IStoryService from './types'
 
 const momentService: IStoryService = {
-  async create(userId, contentHtml, contentText) {
-    const statement = `INSERT INTO moment (contentHtml, contentText, userId) VALUES (?, ?, ?);`
-    console.log(contentHtml, contentText)
+  async create(userId, title, contentHtml, contentText) {
+    const statement = `INSERT INTO moment (title, contentHtml, contentText, userId) VALUES (?, ?, ?, ?);`
 
     const [result] = await pool.execute<ResultSetHeader>(statement, [
+      title,
       contentHtml,
       contentText,
       userId

@@ -8,9 +8,9 @@ import type { IMoment } from '@/service/types'
 const momentController: IMomentController = {
   async create(ctx, next) {
     const { id } = ctx.user
-    const { contentHtml, contentText } = ctx.request.body
+    const { title, contentHtml, contentText } = ctx.request.body
 
-    await momentService.create(id, contentHtml, contentText)
+    await momentService.create(id, title, contentHtml, contentText)
 
     ctx.body = {
       code: 200,

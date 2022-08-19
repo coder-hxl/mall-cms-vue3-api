@@ -4,6 +4,7 @@ import { IMoment } from '../types'
 interface IMomentService {
   create(
     userId: string | number,
+    title: string,
     contentHtml: string,
     contentText: string
   ): Promise<ResultSetHeader>

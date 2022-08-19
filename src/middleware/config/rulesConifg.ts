@@ -237,6 +237,10 @@ const goods: ITableRules = {
 }
 
 const moment: ITableRules = {
+  title: {
+    required: true,
+    message: '内容是必填内容~'
+  },
   contentHtml: {
     required: true,
     message: '内容是必填内容~'
