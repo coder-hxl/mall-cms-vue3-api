@@ -5,11 +5,13 @@ import { ResultSetHeader } from 'mysql2'
 import type IStoryService from './types'
 
 const momentService: IStoryService = {
-  async create(userId, content) {
-    const statement = `INSERT INTO moment (content, userId) VALUES (?, ?);`
+  async create(userId, contentHtml, contentText) {
+    const statement = `INSERT INTO moment (contentHtml, contentText, userId) VALUES (?, ?, ?);`
+    console.log(contentHtml, contentText)
 
     const [result] = await pool.execute<ResultSetHeader>(statement, [
-      content,
+      contentHtml,
+      contentText,
       userId
     ])
 
@@ -18,12 +20,11 @@ const momentService: IStoryService = {
   async getStoryList(like, limit) {
     const likes = mapSqlStatement.like(like, 's')
 
-    // LIKE 和 GROUP BY 无法同时使用
     const sqlLike = likes.length ? `WHERE ${likes.join()}` : ''
     const sqlLimit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
-        s.id, s.content, u.name, s.createAt, s.updateAt
+        s.id, s.contentHtml, s.contentText, u.name, s.createAt, s.updateAt
       FROM moment s
       LEFT JOIN users u ON u.id = s.userId
       ${sqlLike}
