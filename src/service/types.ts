@@ -8,7 +8,7 @@ type tableName =
   | 'avatar'
   | 'category'
   | 'goods'
-  | 'story'
+  | 'moment'
 
 interface ITableCommon {
   id?: number
@@ -85,7 +85,7 @@ interface IRGoodsCategory extends ITableCommon {
   categoryId?: number
 }
 
-interface IStory extends ITableCommon {
+interface IMoment extends ITableCommon {
   content?: string
   userId?: number
 }
@@ -102,5 +102,5 @@ export {
   ICategory,
   IGoods,
   IRGoodsCategory,
-  IStory
+  IMoment
 }

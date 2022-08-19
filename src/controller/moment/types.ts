@@ -1,8 +1,8 @@
 import { IMiddleware } from '@/middleware/types'
 
-interface IStoryController {
+interface IMomentController {
   create: IMiddleware
   list: IMiddleware
 }
 
-export { IStoryController }
+export { IMomentController }

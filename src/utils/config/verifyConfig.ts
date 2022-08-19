@@ -13,7 +13,7 @@ interface IQueryFns {
   role: (key: string, value: string) => Promise<IRole[]>
   category: (key: string, value: string) => Promise<ICategory[]>
   goods?: null
-  story?: null
+  moment?: null
 }
 
 interface IQueryKeys {
@@ -23,7 +23,7 @@ interface IQueryKeys {
   role: string[]
   category: string[]
   goods?: null
-  story?: null
+  moment?: null
 }
 
 const queryFns: IQueryFns = {

@@ -1,16 +1,16 @@
-import storyService from '@/service/story/storyService'
+import momentService from '@/service/moment/momentService'
 
 import { toString, splitObj } from '@/utils/transition'
 
-import type { IStoryController } from './types'
-import type { IStory } from '@/service/types'
+import type { IMomentController } from './types'
+import type { IMoment } from '@/service/types'
 
-const storyController: IStoryController = {
+const momentController: IMomentController = {
   async create(ctx, next) {
     const { id } = ctx.user
     const { content } = ctx.request.body
 
-    await storyService.create(id, content)
+    await momentService.create(id, content)
 
     ctx.body = {
       code: 200,
@@ -21,14 +21,14 @@ const storyController: IStoryController = {
     const info = ctx.request.body
     const offset = toString(info.offset)
     const size = toString(info.size)
-    const [like] = splitObj(info, ['offset', 'size']) as [IStory, any]
+    const [like] = splitObj(info, ['offset', 'size']) as [IMoment, any]
 
     let hasLimit = false
     if (offset && size) {
       hasLimit = true
     }
 
-    const result = await storyService.getStoryList(
+    const result = await momentService.getStoryList(
       like,
       hasLimit ? [offset, size] : []
     )
@@ -43,4 +43,4 @@ const storyController: IStoryController = {
   }
 }
 
-export default storyController
+export default momentController

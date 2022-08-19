@@ -3,11 +3,10 @@ import mapSqlStatement from '@/utils/mapSqlStatement'
 
 import { ResultSetHeader } from 'mysql2'
 import type IStoryService from './types'
-import type { IStory } from '../types'
 
-const storyService: IStoryService = {
+const momentService: IStoryService = {
   async create(userId, content) {
-    const statement = `INSERT INTO story (content, userId) VALUES (?, ?);`
+    const statement = `INSERT INTO moment (content, userId) VALUES (?, ?);`
 
     const [result] = await pool.execute<ResultSetHeader>(statement, [
       content,
@@ -25,20 +24,18 @@ const storyService: IStoryService = {
     const statement = `
       SELECT
         s.id, s.content, u.name, s.createAt, s.updateAt
-      FROM story s
+      FROM moment s
       LEFT JOIN users u ON u.id = s.userId
       ${sqlLike}
       ${sqlLimit};
     `
-
-    console.log(statement)
 
     const [result] = await pool.execute<any>(statement, limit)
 
     return result
   },
   async getStoryByAny(key, value) {
-    const statement = `SELECT * FROM story WHERE ${key} = ?;`
+    const statement = `SELECT * FROM moment WHERE ${key} = ?;`
 
     const [result] = await pool.execute<any>(statement, value)
 
@@ -46,4 +43,4 @@ const storyService: IStoryService = {
   }
 }
 
-export default storyService
+export default momentService
