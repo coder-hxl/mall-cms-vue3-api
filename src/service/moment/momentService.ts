@@ -24,7 +24,8 @@ const momentService: IStoryService = {
     const sqlLimit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
-        s.id, s.contentHtml, s.contentText, u.name, s.createAt, s.updateAt
+        s.id, s.title, s.contentHtml, s.contentText, u.name userName,
+        u.avatarUrl, s.createAt, s.updateAt
       FROM moment s
       LEFT JOIN users u ON u.id = s.userId
       ${sqlLike}

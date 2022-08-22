@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 16/08/2022 19:47:16
+ Date: 22/08/2022 18:29:28
 */
 
 SET NAMES utf8mb4;
@@ -32,12 +32,13 @@ CREATE TABLE `avatar`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `userId`(`userId`) USING BTREE,
   CONSTRAINT `avatar_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of avatar
 -- ----------------------------
 INSERT INTO `avatar` VALUES (3, 'ed41ecfe5cedb43c621294c2c21f5e40', 'image/jpeg', 105570, 1, '2022-08-15 15:34:30', '2022-08-15 16:06:42');
+INSERT INTO `avatar` VALUES (4, '0d834c1365a1bd2ecd7beccbc4a995f1', 'image/png', 101886, 2, '2022-08-22 18:13:40', '2022-08-22 18:13:54');
 
 -- ----------------------------
 -- Table structure for category
@@ -50,14 +51,13 @@ CREATE TABLE `category`  (
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
 INSERT INTO `category` VALUES (1, '上衣', '2022-08-15 16:39:47', '2022-08-15 16:39:47');
 INSERT INTO `category` VALUES (2, '裤子', '2022-08-15 16:40:05', '2022-08-15 16:40:05');
-INSERT INTO `category` VALUES (5, '袜子', '2022-08-15 16:40:21', '2022-08-15 17:07:38');
 INSERT INTO `category` VALUES (11, '鞋子', '2022-08-15 17:13:42', '2022-08-15 17:13:42');
 INSERT INTO `category` VALUES (12, '女装', '2022-08-16 15:17:59', '2022-08-16 15:17:59');
 INSERT INTO `category` VALUES (13, '背心', '2022-08-16 15:18:11', '2022-08-16 15:18:11');
@@ -101,18 +101,18 @@ CREATE TABLE `goods`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `oldPrice` bigint NULL DEFAULT NULL,
-  `newPrice` bigint NULL DEFAULT NULL,
+  `newPrice` bigint NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `enable` int NOT NULL,
-  `imgUrl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `inventoryCount` bigint NULL DEFAULT NULL,
-  `saleCount` bigint NULL DEFAULT NULL,
-  `favorCount` bigint NULL DEFAULT NULL,
+  `imgUrl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `inventoryCount` bigint NOT NULL,
+  `saleCount` bigint NOT NULL,
+  `favorCount` bigint NOT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `createAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods
@@ -120,6 +120,8 @@ CREATE TABLE `goods`  (
 INSERT INTO `goods` VALUES (1, '吊带背心女夏', 43, 30, '吊带背心女夏2022新款内搭吊带衫短款性感修身针织打底衫上衣显瘦', 1, 'http://s11.mogucdn.com/mlcdn/17f85e/180927_5i77e04lhaalbg3dai0j4588lbahh_640x960.jpg_560x999.jpg', 6666, 200, 50, '广州', '2022-08-16 16:43:11', '2022-08-16 16:43:11');
 INSERT INTO `goods` VALUES (2, '秋装女装韩版新款休闲时尚套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1459, 13, '重庆', '2022-08-16 16:56:15', '2022-08-16 16:56:15');
 INSERT INTO `goods` VALUES (3, '新款牛仔外套女韩版宽松短款针织背心高腰半身裙中长裙', 39, 27, '秋装新款牛仔外套女韩版宽松短款针织背心高腰半身裙中长裙小个子显高时尚套装裙子三件套', 1, 'http://s3.mogucdn.com/mlcdn/c45406/180731_5be6jhh7ggj68d4063gkca4egh02i_750x1000.jpg_560x999.jpg', 7012, 1432, 103, '昆明', '2022-08-16 16:57:17', '2022-08-16 17:59:00');
+INSERT INTO `goods` VALUES (5, '秋装女装韩版新款休闲时尚套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1459, 13, '重庆', '2022-08-17 20:40:15', '2022-08-17 20:40:15');
+INSERT INTO `goods` VALUES (6, '套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1459, 13, '重庆', '2022-08-17 20:46:04', '2022-08-17 21:38:40');
 
 -- ----------------------------
 -- Table structure for goods_category
@@ -136,7 +138,7 @@ CREATE TABLE `goods_category`  (
   INDEX `categoryId`(`categoryId`) USING BTREE,
   CONSTRAINT `goods_category_ibfk_1` FOREIGN KEY (`goodsId`) REFERENCES `goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `goods_category_ibfk_2` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods_category
@@ -151,6 +153,10 @@ INSERT INTO `goods_category` VALUES (8, 2, 14, '2022-08-16 16:56:15', '2022-08-1
 INSERT INTO `goods_category` VALUES (17, 3, 13, '2022-08-16 18:01:48', '2022-08-16 18:01:48');
 INSERT INTO `goods_category` VALUES (18, 3, 15, '2022-08-16 18:01:48', '2022-08-16 18:01:48');
 INSERT INTO `goods_category` VALUES (19, 3, 16, '2022-08-16 18:01:48', '2022-08-16 18:01:48');
+INSERT INTO `goods_category` VALUES (20, 5, 1, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
+INSERT INTO `goods_category` VALUES (21, 5, 2, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
+INSERT INTO `goods_category` VALUES (22, 5, 12, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
+INSERT INTO `goods_category` VALUES (23, 5, 14, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
 
 -- ----------------------------
 -- Table structure for menu
@@ -212,12 +218,39 @@ INSERT INTO `menu` VALUES (33, '创建商品', 3, NULL, NULL, 27, 'system:goods:
 INSERT INTO `menu` VALUES (34, '删除商品', 3, NULL, NULL, 28, 'system:goods:delete', 32, '2022-08-14 20:24:11', '2022-08-15 20:07:46');
 INSERT INTO `menu` VALUES (35, '修改商品', 3, NULL, NULL, 29, 'system:goods:update', 32, '2022-08-14 20:24:19', '2022-08-15 20:07:49');
 INSERT INTO `menu` VALUES (36, '查询商品', 3, NULL, NULL, 30, 'system:goods:query', 32, '2022-08-14 20:24:27', '2022-08-15 20:07:55');
-INSERT INTO `menu` VALUES (37, '随便聊聊', 1, 'chat-line-round', '/main/story', 36, NULL, NULL, '2022-08-14 20:27:26', '2022-08-14 20:31:21');
-INSERT INTO `menu` VALUES (38, '你的故事', 2, NULL, '/main/story/chat', 37, NULL, 37, '2022-08-14 20:31:07', '2022-08-14 20:31:07');
-INSERT INTO `menu` VALUES (39, '故事列表', 2, NULL, '/main/story/list', 38, NULL, 37, '2022-08-14 20:31:49', '2022-08-14 20:31:49');
-INSERT INTO `menu` VALUES (40, '删除故事', 3, NULL, NULL, 39, 'system:story:delete', 39, '2022-08-14 20:32:30', '2022-08-14 20:32:30');
-INSERT INTO `menu` VALUES (41, '修改故事', 3, NULL, NULL, 40, 'system:story:update', 39, '2022-08-14 20:33:17', '2022-08-14 20:33:17');
-INSERT INTO `menu` VALUES (42, '查询故事', 3, NULL, NULL, 41, 'system:story:query', 39, '2022-08-14 20:33:24', '2022-08-15 20:03:41');
+INSERT INTO `menu` VALUES (37, '动态', 1, 'chat-line-round', '/main/moment', 36, NULL, NULL, '2022-08-14 20:27:26', '2022-08-19 13:11:11');
+INSERT INTO `menu` VALUES (38, '动态主页', 2, NULL, '/main/moment/main', 37, NULL, 37, '2022-08-14 20:31:07', '2022-08-19 14:15:25');
+INSERT INTO `menu` VALUES (39, '动态列表', 2, NULL, '/main/moment/list', 38, NULL, 37, '2022-08-14 20:31:49', '2022-08-19 13:11:20');
+INSERT INTO `menu` VALUES (40, '删除动态', 3, NULL, NULL, 39, 'system:moment:delete', 39, '2022-08-14 20:32:30', '2022-08-19 13:12:53');
+INSERT INTO `menu` VALUES (41, '修改动态', 3, NULL, NULL, 40, 'system:moment:update', 39, '2022-08-14 20:33:17', '2022-08-19 13:13:03');
+INSERT INTO `menu` VALUES (42, '查询动态', 3, NULL, NULL, 41, 'system:moment:query', 39, '2022-08-14 20:33:24', '2022-08-19 13:13:11');
+
+-- ----------------------------
+-- Table structure for moment
+-- ----------------------------
+DROP TABLE IF EXISTS `moment`;
+CREATE TABLE `moment`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `contentHtml` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `contentText` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `userId` int NOT NULL,
+  `createAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `userId`(`userId`) USING BTREE,
+  CONSTRAINT `moment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of moment
+-- ----------------------------
+INSERT INTO `moment` VALUES (1, '<p><strong>项目介绍</strong></p><p><strong>MALL-CMS-Vue3</strong>&nbsp;是基于&nbsp;Vue3、Pinia、VueRouter、Vite、ElementPlus、TypeScript、Echart5&nbsp;等技术实现的。</p><p><strong>技术栈</strong></p><ul style=\"text-indent: 0px; text-align: left;\"><li>开发工具:&nbsp;<a href=\"\" target=\"\">Visual&nbsp;Studio&nbsp;Code</a></li><li>编程语言:&nbsp;<a href=\"\" target=\"\">TypeScript&nbsp;4&nbsp;+&nbsp;JavaScript</a></li><li>构建语言:&nbsp;<a href=\"\" target=\"\">Vite&nbsp;2</a></li><li>前端框架:&nbsp;<a href=\"\" target=\"\">Vue&nbsp;3</a></li><li>路由工具:&nbsp;<a href=\"\" target=\"\">Vue&nbsp;Router&nbsp;4</a></li><li>状态管理:&nbsp;<a href=\"\" target=\"\">Pinia&nbsp;2</a></li><li>UI&nbsp;框架:&nbsp;<a href=\"\" target=\"\">Element&nbsp;Plus</a></li><li>可视化:&nbsp;<a href=\"\" target=\"\">Echart&nbsp;5</a></li><li>富文本:&nbsp;<a href=\"\" target=\"\">WangEditor</a></li><li>工具库:&nbsp;<a href=\"\" target=\"\">dayjs&nbsp;+&nbsp;countup.js</a></li><li>CSS&nbsp;预编译:&nbsp;<a href=\"\" target=\"\">Less</a></li><li>HTTP&nbsp;工具:&nbsp;<a href=\"\" target=\"\">Axios</a></li><li>Git&nbsp;Hook&nbsp;工具:&nbsp;<a href=\"\" target=\"\">husky</a></li><li>代码规范:&nbsp;<a href=\"\" target=\"\">EditorConfig&nbsp;+&nbsp;Prettier&nbsp;+&nbsp;ESLint</a></li><li>提交规范:&nbsp;<a href=\"\" target=\"\">Commitizen&nbsp;+&nbsp;Commitlint</a></li><li>自动部署:&nbsp;<a href=\"\" target=\"\">Centos&nbsp;+&nbsp;Jenkins&nbsp;+&nbsp;Nginx</a></li></ul>', '项目介绍\nMALL-CMS-Vue3 是基于 Vue3、Pinia、VueRouter、Vite、ElementPlus、TypeScript、Echart5 等技术实现的。\n\n技术栈\n开发工具: Visual Studio Code编程语言: TypeScript 4 + JavaScript构建语言: Vite 2前端框架: Vue 3路由工具: Vue Router 4状态管理: Pinia 2UI 框架: Element Plus可视化: Echart 5富文本: WangEditor工具库: dayjs + countup.jsCSS 预编译: LessHTTP 工具: AxiosGit Hook 工具: husky代码规范: EditorConfig + Prettier + ESLint提交规范: Commitizen + Commitlint自动部署: Centos + Jenkins + Nginx', 1, '2022-08-19 15:56:07', '2022-08-22 18:06:49', 'MALL-CMS-Vue3');
+INSERT INTO `moment` VALUES (2, '<p><br></p><h1 style=\"text-indent: 0px; text-align: center; line-height: 1.25;\">渐进式<br>JavaScript&nbsp;框架</h1>', '渐进式\nJavaScript 框架', 1, '2022-08-19 18:34:04', '2022-08-22 18:08:11', 'Vue');
+INSERT INTO `moment` VALUES (3, '<p><em>道阻且长&nbsp;行则将至</em></p>', '道阻且长 行则将至', 1, '2022-08-22 18:10:17', '2022-08-22 18:10:44', '这一路');
+INSERT INTO `moment` VALUES (6, '<p>它也是中国古老文化的深奥概念，是一套用三组阴阳组成的形而上的哲学符号。其深邃的哲理解释自然、社会现象。八卦成列，象在其中矣；因而重之，爻在其中矣；刚柔相推，变在其中矣；系辞焉而命之，动在其中矣。八卦成列的基础是易象，重卦的基础则在于爻变，“爻在其中矣”便是易道周流的内在动因。八卦表示事物自身变化的阴阳系统，用“一”代表阳，用“-&nbsp;-”代表阴，用这两种符号，按照大自然的阴阳变化平行组合，组成八种不同形式，叫做八卦。八卦其实是最早的文字表述符号。</p>', '它也是中国古老文化的深奥概念，是一套用三组阴阳组成的形而上的哲学符号。其深邃的哲理解释自然、社会现象。八卦成列，象在其中矣；因而重之，爻在其中矣；刚柔相推，变在其中矣；系辞焉而命之，动在其中矣。八卦成列的基础是易象，重卦的基础则在于爻变，“爻在其中矣”便是易道周流的内在动因。八卦表示事物自身变化的阴阳系统，用“一”代表阳，用“- -”代表阴，用这两种符号，按照大自然的阴阳变化平行组合，组成八种不同形式，叫做八卦。八卦其实是最早的文字表述符号。', 2, '2022-08-22 18:19:59', '2022-08-22 18:19:59', '八卦');
+INSERT INTO `moment` VALUES (8, '<p><strong>先天八卦</strong>，相传来自于河图。它是乾坤定南北，坎离定东西，是天南地北为序，上为天为乾，下为地为坤，左为东为离，右为西为坎。故先天八卦数是：乾一、兑二、离三、震四、巽五、坎六、艮七、坤八。它的中间数为0，以代表五或十。0象征着宇宙的元气。它的序数对宫相加之和为九数。先天八卦演变过程中，首先是太极，其次是两仪，接着是四象，最后是八卦，它们是宇宙形成的过程。</p>', '先天八卦，相传来自于河图。它是乾坤定南北，坎离定东西，是天南地北为序，上为天为乾，下为地为坤，左为东为离，右为西为坎。故先天八卦数是：乾一、兑二、离三、震四、巽五、坎六、艮七、坤八。它的中间数为0，以代表五或十。0象征着宇宙的元气。它的序数对宫相加之和为九数。先天八卦演变过程中，首先是太极，其次是两仪，接着是四象，最后是八卦，它们是宇宙形成的过程。', 2, '2022-08-22 18:27:43', '2022-08-22 18:27:43', '先天八卦');
+INSERT INTO `moment` VALUES (9, '<p><strong>后天八卦</strong>，相传来自于洛书。它是离坎定南北，震兑定东西。故后天八卦数是：坎一、坤二、震三、巽四、中五、乾六、兑七、艮八、离九。它的中间数为五，与对宫纵横相加之和为十五数。</p>', '后天八卦，相传来自于洛书。它是离坎定南北，震兑定东西。故后天八卦数是：坎一、坤二、震三、巽四、中五、乾六、兑七、艮八、离九。它的中间数为五，与对宫纵横相加之和为十五数。', 2, '2022-08-22 18:28:08', '2022-08-22 18:28:08', '后天八卦');
 
 -- ----------------------------
 -- Table structure for role
@@ -231,7 +264,7 @@ CREATE TABLE `role`  (
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -255,7 +288,7 @@ CREATE TABLE `role_menu`  (
   INDEX `menuId`(`menuId`) USING BTREE,
   CONSTRAINT `role_menu_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `role_menu_ibfk_2` FOREIGN KEY (`menuId`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 99 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu
