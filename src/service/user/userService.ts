@@ -62,14 +62,16 @@ const userService: IUserService = {
   async getUserList(like, limit) {
     const likes = mapSqlStatement.like(like, 'u')
 
+    const sqlLike = likes.length ? `WHERE ${likes.join()}` : ''
+    const sqlLimit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
     	  u.id, u.name, u.realname, u.cellphone, u.enable, d.name department, r.name role, u.createAt, u.updateAt
       FROM users u
       LEFT JOIN department d ON d.id = u.departmentId
       LEFT JOIN role r ON r.id = u.roleId
-      ${likes.length ? `WHERE ${likes.join(' ')}` : ''}
-      ${limit.length ? 'LIMIT ?, ?' : ''};
+      ${sqlLike}
+      ${sqlLimit};
     `
 
     const [result] = await pool.execute<any[]>(statement, limit)
