@@ -51,7 +51,7 @@ interface IRole extends ITableCommon {
   menuList?: IMenu[]
 }
 
-interface IRoleMenu extends ITableCommon {
+interface IRRoleMenu extends ITableCommon {
   roleId?: number
   menuId?: number
 }
@@ -97,7 +97,7 @@ export {
   IDepartment,
   IMenu,
   IRole,
-  IRoleMenu,
+  IRRoleMenu,
   IAvatar,
   ICategory,
   IGoods,

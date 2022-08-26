@@ -29,7 +29,7 @@ const RGoodsCategoryService: IRGoodsCategoryService = {
   async delete(id) {
     const statement = `DELETE FROM goods_category WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [id])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [id])
 
     return result
   },

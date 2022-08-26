@@ -2,6 +2,7 @@ import pool from '@/app/database'
 
 import mapSqlStatement from '@/utils/mapSqlStatement'
 
+import type { ResultSetHeader } from 'mysql2'
 import type { IFileService } from './types'
 
 const fileService: IFileService = {
@@ -14,7 +15,7 @@ const fileService: IFileService = {
     })
     const statement = `INSERT INTO avatar (${inserts.join()}) VALUES (${placeholders.join()});`
 
-    const [result] = await pool.execute(statement, values)
+    const [result] = await pool.execute<ResultSetHeader>(statement, values)
 
     return result
   },
@@ -26,7 +27,10 @@ const fileService: IFileService = {
     })
     const statement = `UPDATE avatar SET ${updates.join()} WHERE userId = ?;`
 
-    const [result] = await pool.execute<any>(statement, [...values, userId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      ...values,
+      userId
+    ])
 
     return result
   },

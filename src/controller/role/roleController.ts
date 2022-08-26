@@ -1,5 +1,5 @@
 import roleService from '@/service/role/roleService'
-import roleMenuService from '@/service/roleMenu/roleMenuService'
+import RRoleMenuService from '@/service/RRoleMenu/RRoleMenuService'
 
 import { toString, splitObj } from '@/utils/transition'
 import { menuListHandle } from '@/utils/menuHandle'
@@ -15,7 +15,7 @@ const roleController: IRoleController = {
     const roleResult = await roleService.create(roleInfo)
 
     for (const menuId of menuList) {
-      await roleMenuService.create(roleResult.insertId, menuId)
+      await RRoleMenuService.create(roleResult.insertId, menuId)
     }
 
     ctx.body = {
@@ -47,20 +47,22 @@ const roleController: IRoleController = {
 
     // 2.处理 role_menu 关系表
     if (menuList) {
-      const rawrRoleMenuList = await roleMenuService.getRoleMenuByRoleId(roleId)
+      const rawrRoleMenuList = await RRoleMenuService.getRoleMenuByRoleId(
+        roleId
+      )
       const oldMenuIdList = rawrRoleMenuList.map((item) => item.menuId)
 
       // 删旧
       for (const roleMenu of rawrRoleMenuList) {
         if (!menuList.includes(roleMenu.menuId as number)) {
-          await roleMenuService.delete(roleMenu.id as number)
+          await RRoleMenuService.delete(roleMenu.id as number)
         }
       }
 
       // 添新
       for (const menu of menuList) {
         if (!oldMenuIdList.includes(menu)) {
-          await roleMenuService.create(roleId, menu)
+          await RRoleMenuService.create(roleId, menu)
         }
       }
     }

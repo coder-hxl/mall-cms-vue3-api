@@ -2,6 +2,7 @@ import pool from '@/app/database'
 
 import mapSqlStatement from '@/utils/mapSqlStatement'
 
+import type { ResultSetHeader } from 'mysql2'
 import type { IUserService } from './types'
 import type { IUser } from '../types'
 
@@ -12,14 +13,15 @@ const userService: IUserService = {
 
     const statement = `INSERT INTO users (${inserts.join()}) VALUES (${placeholders.join()});`
 
-    const [result] = await pool.execute(statement, values)
+    const [result] = await pool.execute<ResultSetHeader>(statement, values)
 
     return result
   },
   async delete(userId) {
     const statement = `DELETE FROM users WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [userId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [userId])
+    console.log(result)
 
     return result
   },
@@ -28,7 +30,10 @@ const userService: IUserService = {
 
     const statement = `UPDATE users SET ${updates.join()} WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [...values, userId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      ...values,
+      userId
+    ])
 
     return result
   },

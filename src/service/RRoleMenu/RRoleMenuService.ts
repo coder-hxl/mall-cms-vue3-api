@@ -1,19 +1,25 @@
 import pool from '@/app/database'
 
-import { IRoleMenuService } from './types'
+import type { ResultSetHeader } from 'mysql2'
+import { IRRoleMenuService } from './types'
 
-const roleMenuService: IRoleMenuService = {
+const RRoleMenuService: IRRoleMenuService = {
   async create(roleId, menuId) {
     const statement = `INSERT INTO role_menu (roleId, menuId) VALUES (?, ?);`
 
-    const [result] = await pool.execute(statement, [roleId, menuId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      roleId,
+      menuId
+    ])
 
     return result
   },
   async delete(roleMenuId) {
     const statement = `DELETE FROM role_menu WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [roleMenuId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      roleMenuId
+    ])
 
     return result
   },
@@ -26,4 +32,4 @@ const roleMenuService: IRoleMenuService = {
   }
 }
 
-export default roleMenuService
+export default RRoleMenuService

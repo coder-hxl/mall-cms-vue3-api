@@ -1,6 +1,7 @@
 import pool from '@/app/database'
 import mapSqlStatement from '@/utils/mapSqlStatement'
 
+import type { ResultSetHeader } from 'mysql2'
 import type { IMenuService } from './types'
 
 const getField = (TName: string) => {
@@ -12,14 +13,14 @@ const menuService: IMenuService = {
     const { inserts, placeholders, values } = mapSqlStatement.create(menuInfo)
     const statement = `INSERT INTO menu (${inserts.join()}) VALUES (${placeholders.join()});`
 
-    const [result] = await pool.execute(statement, values)
+    const [result] = await pool.execute<ResultSetHeader>(statement, values)
 
     return result
   },
   async delete(menuId) {
     const statement = `DELETE FROM menu WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [menuId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [menuId])
 
     return result
   },
@@ -27,7 +28,10 @@ const menuService: IMenuService = {
     const { updates, values } = mapSqlStatement.update(menuInfo)
     const statement = `UPDATE menu SET ${updates.join()} WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [...values, menuId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      ...values,
+      menuId
+    ])
 
     return result
   },

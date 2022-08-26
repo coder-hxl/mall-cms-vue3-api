@@ -1,3 +1,4 @@
+import type { ResultSetHeader } from 'mysql2'
 import { IAvatar } from '../types'
 
 interface IFileService {
@@ -6,13 +7,13 @@ interface IFileService {
     filename: string,
     mimetype: string,
     size: number
-  ): Promise<any>
+  ): Promise<ResultSetHeader>
   updateAvatar(
     userId: number,
     filename: string,
     mimetype: string,
     size: number
-  ): Promise<any>
+  ): Promise<ResultSetHeader>
   getAvatartByUserId(userId: string | number): Promise<IAvatar>
 }
 

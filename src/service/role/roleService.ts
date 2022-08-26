@@ -1,6 +1,7 @@
 import pool from '@/app/database'
 import mapSqlStatement from '@/utils/mapSqlStatement'
 
+import type { ResultSetHeader } from 'mysql2'
 import { IRoleService } from './types'
 
 const roleService: IRoleService = {
@@ -9,14 +10,14 @@ const roleService: IRoleService = {
 
     const statement = `INSERT INTO role (${inserts.join()}) VALUES (${placeholders.join()});`
 
-    const [result] = await pool.execute(statement, values)
+    const [result] = await pool.execute<ResultSetHeader>(statement, values)
 
     return result
   },
   async delete(roleId) {
     const statement = `DELETE FROM role WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [roleId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [roleId])
 
     return result
   },
@@ -24,7 +25,10 @@ const roleService: IRoleService = {
     const { updates, values } = mapSqlStatement.update(roleInfo)
     const statement = `UPDATE role SET ${updates.join()} WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [...values, roleId])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      ...values,
+      roleId
+    ])
 
     return result
   },

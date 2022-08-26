@@ -1,6 +1,7 @@
 import pool from '@/app/database'
 import mapSqlStatement from '@/utils/mapSqlStatement'
 
+import type { ResultSetHeader } from 'mysql2'
 import type { IDepartmentService } from './types'
 
 const departmentService: IDepartmentService = {
@@ -9,14 +10,14 @@ const departmentService: IDepartmentService = {
 
     const statement = `INSERT INTO department (${inserts.join()}) VALUES (${placeholders.join()});`
 
-    const [result] = await pool.execute(statement, values)
+    const [result] = await pool.execute<ResultSetHeader>(statement, values)
 
     return result
   },
   async delete(id) {
     const statement = `DELETE FROM department WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [id])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [id])
 
     return result
   },
@@ -25,7 +26,10 @@ const departmentService: IDepartmentService = {
 
     const statement = `UPDATE department SET ${updates.join()} WHERE id = ?;`
 
-    const [result] = await pool.execute(statement, [...values, id])
+    const [result] = await pool.execute<ResultSetHeader>(statement, [
+      ...values,
+      id
+    ])
 
     return result
   },
