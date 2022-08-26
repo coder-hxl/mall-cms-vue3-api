@@ -98,6 +98,45 @@ const goodsController: IGoodsController = {
         totalCount: result.length
       }
     }
+  },
+  async amountList(ctx, next) {
+    const result = await goodsService.getGoodsAmountList()
+    const amount = result[0]
+
+    const amountListResult = []
+
+    for (const key in amount) {
+      const value = parseInt(amount[key])
+      let result: any
+
+      if (key === 'inventory') {
+        result = {
+          title: '商品总库存',
+          tips: '所有商品的总库存'
+        }
+      } else if (key === 'sale') {
+        result = {
+          title: '商品总收藏',
+          tips: '所有商品的总收藏'
+        }
+      } else if (key === 'favor') {
+        result = {
+          title: '商品总销量',
+          tips: '所有商品的总销量'
+        }
+      }
+
+      if (result) {
+        result.amount = key
+        result.value = value
+        amountListResult.push(result)
+      }
+    }
+
+    ctx.body = {
+      code: 200,
+      data: amountListResult
+    }
   }
 }
 

@@ -1,12 +1,3 @@
-type rulesTableName =
-  | 'users'
-  | 'department'
-  | 'menu'
-  | 'role'
-  | 'category'
-  | 'goods'
-  | 'moment'
-
 interface IRulesItem {
   required?: boolean
   pattern?: RegExp
@@ -26,6 +17,8 @@ interface IStore {
   goods: ITableRules
   moment: ITableRules
 }
+
+type rulesTableName = keyof IStore
 
 const users: ITableRules = {
   name: [

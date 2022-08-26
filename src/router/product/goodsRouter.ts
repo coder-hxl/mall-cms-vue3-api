@@ -26,4 +26,7 @@ goodsRouter.patch(
 goodsRouter.get('/:goodsId', verifyAuth, goodsController.detail)
 goodsRouter.post('/list', verifyAuth, goodsController.list)
 
+// 统计数据
+goodsRouter.get('/amount/list', verifyAuth, goodsController.amountList)
+
 export default goodsRouter

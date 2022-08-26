@@ -1,5 +1,3 @@
-type forbidTableName = 'users' | 'department' | 'menu' | 'role'
-
 interface IForbidHandleIds {
   users: number[]
   menu: number[]
@@ -8,6 +6,8 @@ interface IForbidHandleIds {
   category: number[]
   goods: number[]
 }
+
+type forbidTableName = keyof IForbidHandleIds
 
 const forbidHandleIds: IForbidHandleIds = {
   users: [1, 2, 3],

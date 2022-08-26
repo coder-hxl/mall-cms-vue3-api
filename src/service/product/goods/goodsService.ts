@@ -71,6 +71,18 @@ const goodsService: IGoodsService = {
 
     return result
   },
+  async getGoodsAmountList() {
+    const statement = `
+      SELECT
+	      SUM(inventoryCount) inventory, SUM(saleCount) sale,
+        SUM(favorCount) favor
+      FROM goods;
+    `
+
+    const [result] = await pool.execute(statement)
+
+    return result
+  },
   async getGoodsByAny(key, value) {
     const statement = `SELECT * FROM goods WHERE ${key} = ?;`
 
