@@ -107,29 +107,29 @@ const goodsController: IGoodsController = {
 
     for (const key in amount) {
       const value = parseInt(amount[key])
-      let result: any
+      let item: any
 
       if (key === 'inventory') {
-        result = {
+        item = {
           title: '商品总库存',
           tips: '所有商品的总库存'
         }
       } else if (key === 'sale') {
-        result = {
+        item = {
           title: '商品总收藏',
           tips: '所有商品的总收藏'
         }
       } else if (key === 'favor') {
-        result = {
+        item = {
           title: '商品总销量',
           tips: '所有商品的总销量'
         }
       }
 
-      if (result) {
-        result.amount = key
-        result.value = value
-        amountListResult.push(result)
+      if (item) {
+        item.amount = key
+        item.value = value
+        amountListResult.push(item)
       }
     }
 
