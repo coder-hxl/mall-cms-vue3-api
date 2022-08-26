@@ -38,8 +38,7 @@ const roleService: IRoleService = {
   async getRoleList(like, limit) {
     const likes = mapSqlStatement.like(like, 'r')
 
-    // LIKE 和 GROUP BY 无法同时使用
-    const sqlLike = likes.length ? `WHERE ${likes.join()}` : 'GROUP BY r.id'
+    const sqlLike = likes.length ? `WHERE ${likes.join()}` : ''
     const sqlLimit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
@@ -51,6 +50,7 @@ const roleService: IRoleService = {
       LEFT JOIN role_menu rm ON rm.roleId = r.id
       LEFT JOIN menu m ON m.id = rm.menuId
       ${sqlLike}
+      GROUP BY r.id
       ${sqlLimit};
     `
 
