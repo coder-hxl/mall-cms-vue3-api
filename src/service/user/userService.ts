@@ -37,13 +37,6 @@ const userService: IUserService = {
 
     return result
   },
-  async getUserByAny(key, value) {
-    const statement = `SELECT * FROM users WHERE ${key} = ?;`
-
-    const [result] = await pool.execute<any>(statement, [value])
-
-    return result
-  },
   async getUserByID(userId) {
     const statement = `
       SELECT
@@ -71,7 +64,9 @@ const userService: IUserService = {
     const sqlLimit = limit.length ? `LIMIT ?, ?` : ''
     const statement = `
       SELECT
-    	  u.id, u.name, u.realname, u.cellphone, u.enable, d.name department, r.name role, u.createAt, u.updateAt
+    	  u.id, u.name, u.realname, u.cellphone, u.enable, d.id departmentId,
+        d.name departmentName, r.id roleId, r.name roleName,
+        u.createAt, u.updateAt
       FROM users u
       LEFT JOIN department d ON d.id = u.departmentId
       LEFT JOIN role r ON r.id = u.roleId
@@ -80,6 +75,13 @@ const userService: IUserService = {
     `
 
     const [result] = await pool.execute<any[]>(statement, limit)
+
+    return result
+  },
+  async getUserByAny(key, value) {
+    const statement = `SELECT * FROM users WHERE ${key} = ?;`
+
+    const [result] = await pool.execute<any>(statement, [value])
 
     return result
   }
