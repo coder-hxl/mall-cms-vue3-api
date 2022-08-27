@@ -7,5 +7,6 @@ interface IGoodsController {
   detail: IMiddleware
   list: IMiddleware
   amountList: IMiddleware
+  addressSale: IMiddleware
 }
 export default IGoodsController

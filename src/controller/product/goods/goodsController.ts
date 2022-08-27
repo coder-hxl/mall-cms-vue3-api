@@ -137,6 +137,14 @@ const goodsController: IGoodsController = {
       code: 200,
       data: amountListResult
     }
+  },
+  async addressSale(ctx, next) {
+    const result = await goodsService.getGoodsAddressSale()
+
+    ctx.body = {
+      code: 200,
+      data: result
+    }
   }
 }
 

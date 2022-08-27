@@ -28,5 +28,6 @@ goodsRouter.post('/list', verifyAuth, goodsController.list)
 
 // 统计数据
 goodsRouter.get('/amount/list', verifyAuth, goodsController.amountList)
+goodsRouter.get('/address/sale', verifyAuth, goodsController.addressSale)
 
 export default goodsRouter

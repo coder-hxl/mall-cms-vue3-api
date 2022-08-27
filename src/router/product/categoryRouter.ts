@@ -26,4 +26,9 @@ categoryRouter.patch(
 categoryRouter.get('/:categoryId', verifyAuth, categoryController.detail)
 categoryRouter.post('/list', verifyAuth, categoryController.list)
 
+// 统计数据
+categoryRouter.get('/goods/count', verifyAuth, categoryController.goodsCount)
+categoryRouter.get('/goods/sale', verifyAuth, categoryController.goodsSale)
+categoryRouter.get('/goods/favor', verifyAuth, categoryController.goodsFavor)
+
 export default categoryRouter

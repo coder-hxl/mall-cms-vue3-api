@@ -79,7 +79,19 @@ const goodsService: IGoodsService = {
       FROM goods;
     `
 
-    const [result] = await pool.execute(statement)
+    const [result] = await pool.execute<any[]>(statement)
+
+    return result
+  },
+  async getGoodsAddressSale() {
+    const statement = `
+      SELECT
+	      address, SUM(saleCount) count
+      FROM goods
+      GROUP BY goods.address;
+    `
+
+    const [result] = await pool.execute<any[]>(statement)
 
     return result
   },

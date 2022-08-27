@@ -6,5 +6,8 @@ interface ICategoryController {
   update: IMiddleware
   detail: IMiddleware
   list: IMiddleware
+  goodsCount: IMiddleware
+  goodsSale: IMiddleware
+  goodsFavor: IMiddleware
 }
 export default ICategoryController

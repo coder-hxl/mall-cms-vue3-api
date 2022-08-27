@@ -41,6 +41,47 @@ const categoryService: ICategoryService = {
 
     return result
   },
+  async getCategoryGoodsCount() {
+    const statement = `
+      SELECT
+      	c.id, c.name, COUNT(gc.goodsId) goodsCount
+      FROM category c
+      LEFT JOIN goods_category gc ON gc.categoryId = c.id
+      GROUP BY c.id;
+    `
+
+    const [result] = await pool.execute<any[]>(statement)
+
+    return result
+  },
+  async getCategoryGoodsSale() {
+    const statement = `
+      SELECT
+      	c.id, c.name, SUM(g.saleCount) saleCount
+      FROM category c
+      LEFT JOIN goods_category gc ON gc.categoryId = c.id
+      LEFT JOIN goods g ON g.id = gc.goodsId
+      GROUP BY c.id;
+    `
+
+    const [result] = await pool.execute<any[]>(statement)
+
+    return result
+  },
+  async getCategoryGoodsFavor() {
+    const statement = `
+      SELECT
+      	c.id, c.name, SUM(g.favorCount) favorCount
+      FROM category c
+      LEFT JOIN goods_category gc ON gc.categoryId = c.id
+      LEFT JOIN goods g ON g.id = gc.goodsId
+      GROUP BY c.id;
+    `
+
+    const [result] = await pool.execute<any[]>(statement)
+
+    return result
+  },
   async getCategoryByAny(key, value) {
     const statement = `SELECT * FROM category WHERE ${key} = ?;`
 

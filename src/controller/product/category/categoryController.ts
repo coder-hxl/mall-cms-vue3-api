@@ -71,6 +71,30 @@ const categoryController: ICategoryController = {
         totalCount: result.length
       }
     }
+  },
+  async goodsCount(ctx, next) {
+    const result = await categoryService.getCategoryGoodsCount()
+
+    ctx.body = {
+      code: 200,
+      data: result
+    }
+  },
+  async goodsSale(ctx, next) {
+    const result = await categoryService.getCategoryGoodsSale()
+
+    ctx.body = {
+      code: 200,
+      data: result
+    }
+  },
+  async goodsFavor(ctx, next) {
+    const result = await categoryService.getCategoryGoodsFavor()
+
+    ctx.body = {
+      code: 200,
+      data: result
+    }
   }
 }
 
