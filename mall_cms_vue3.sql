@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 22/08/2022 18:29:28
+ Date: 27/08/2022 16:23:44
 */
 
 SET NAMES utf8mb4;
@@ -58,12 +58,10 @@ CREATE TABLE `category`  (
 -- ----------------------------
 INSERT INTO `category` VALUES (1, '上衣', '2022-08-15 16:39:47', '2022-08-15 16:39:47');
 INSERT INTO `category` VALUES (2, '裤子', '2022-08-15 16:40:05', '2022-08-15 16:40:05');
-INSERT INTO `category` VALUES (11, '鞋子', '2022-08-15 17:13:42', '2022-08-15 17:13:42');
-INSERT INTO `category` VALUES (12, '女装', '2022-08-16 15:17:59', '2022-08-16 15:17:59');
-INSERT INTO `category` VALUES (13, '背心', '2022-08-16 15:18:11', '2022-08-16 15:18:11');
-INSERT INTO `category` VALUES (14, '衣服套装', '2022-08-16 16:53:34', '2022-08-16 16:54:03');
-INSERT INTO `category` VALUES (15, '牛仔衣服', '2022-08-16 17:16:31', '2022-08-16 17:16:31');
-INSERT INTO `category` VALUES (16, '裙子', '2022-08-16 17:16:57', '2022-08-16 17:16:57');
+INSERT INTO `category` VALUES (3, '鞋子', '2022-08-15 17:13:42', '2022-08-27 16:14:47');
+INSERT INTO `category` VALUES (4, '女装', '2022-08-16 15:17:59', '2022-08-27 16:14:49');
+INSERT INTO `category` VALUES (5, '衣服套装', '2022-08-16 16:53:34', '2022-08-27 16:14:51');
+INSERT INTO `category` VALUES (6, '裙子', '2022-08-16 17:16:57', '2022-08-27 16:14:56');
 
 -- ----------------------------
 -- Table structure for department
@@ -118,10 +116,8 @@ CREATE TABLE `goods`  (
 -- Records of goods
 -- ----------------------------
 INSERT INTO `goods` VALUES (1, '吊带背心女夏', 43, 30, '吊带背心女夏2022新款内搭吊带衫短款性感修身针织打底衫上衣显瘦', 1, 'http://s11.mogucdn.com/mlcdn/17f85e/180927_5i77e04lhaalbg3dai0j4588lbahh_640x960.jpg_560x999.jpg', 6666, 200, 50, '广州', '2022-08-16 16:43:11', '2022-08-16 16:43:11');
-INSERT INTO `goods` VALUES (2, '秋装女装韩版新款休闲时尚套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1459, 13, '重庆', '2022-08-16 16:56:15', '2022-08-16 16:56:15');
+INSERT INTO `goods` VALUES (2, '秋装女装韩版新款休闲时尚套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1399, 13, '重庆', '2022-08-16 16:56:15', '2022-08-27 15:47:10');
 INSERT INTO `goods` VALUES (3, '新款牛仔外套女韩版宽松短款针织背心高腰半身裙中长裙', 39, 27, '秋装新款牛仔外套女韩版宽松短款针织背心高腰半身裙中长裙小个子显高时尚套装裙子三件套', 1, 'http://s3.mogucdn.com/mlcdn/c45406/180731_5be6jhh7ggj68d4063gkca4egh02i_750x1000.jpg_560x999.jpg', 7012, 1432, 103, '昆明', '2022-08-16 16:57:17', '2022-08-16 17:59:00');
-INSERT INTO `goods` VALUES (5, '秋装女装韩版新款休闲时尚套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1459, 13, '重庆', '2022-08-17 20:40:15', '2022-08-17 20:40:15');
-INSERT INTO `goods` VALUES (6, '套装女', 198, 198, '秋装女装韩版新款休闲时尚套装女圆领条纹薄款上衣+高腰束脚灯笼裤两件套女潮', 1, 'http://s11.mogucdn.com/mlcdn/55cf19/180803_44ec95haiehdddjk126fgidfg52le_640x960.jpg_560x999.jpg', 1582, 1459, 13, '重庆', '2022-08-17 20:46:04', '2022-08-17 21:38:40');
 
 -- ----------------------------
 -- Table structure for goods_category
@@ -138,25 +134,18 @@ CREATE TABLE `goods_category`  (
   INDEX `categoryId`(`categoryId`) USING BTREE,
   CONSTRAINT `goods_category_ibfk_1` FOREIGN KEY (`goodsId`) REFERENCES `goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `goods_category_ibfk_2` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of goods_category
 -- ----------------------------
 INSERT INTO `goods_category` VALUES (2, 1, 1, '2022-08-16 16:43:11', '2022-08-16 16:43:11');
-INSERT INTO `goods_category` VALUES (3, 1, 12, '2022-08-16 16:43:11', '2022-08-16 16:43:11');
-INSERT INTO `goods_category` VALUES (4, 1, 13, '2022-08-16 16:43:11', '2022-08-16 16:43:11');
+INSERT INTO `goods_category` VALUES (3, 1, 4, '2022-08-16 16:43:11', '2022-08-16 16:43:11');
 INSERT INTO `goods_category` VALUES (5, 2, 1, '2022-08-16 16:56:15', '2022-08-16 16:56:15');
 INSERT INTO `goods_category` VALUES (6, 2, 2, '2022-08-16 16:56:15', '2022-08-16 16:56:15');
-INSERT INTO `goods_category` VALUES (7, 2, 12, '2022-08-16 16:56:15', '2022-08-16 16:56:15');
-INSERT INTO `goods_category` VALUES (8, 2, 14, '2022-08-16 16:56:15', '2022-08-16 16:56:15');
-INSERT INTO `goods_category` VALUES (17, 3, 13, '2022-08-16 18:01:48', '2022-08-16 18:01:48');
-INSERT INTO `goods_category` VALUES (18, 3, 15, '2022-08-16 18:01:48', '2022-08-16 18:01:48');
-INSERT INTO `goods_category` VALUES (19, 3, 16, '2022-08-16 18:01:48', '2022-08-16 18:01:48');
-INSERT INTO `goods_category` VALUES (20, 5, 1, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
-INSERT INTO `goods_category` VALUES (21, 5, 2, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
-INSERT INTO `goods_category` VALUES (22, 5, 12, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
-INSERT INTO `goods_category` VALUES (23, 5, 14, '2022-08-17 20:40:15', '2022-08-17 20:40:15');
+INSERT INTO `goods_category` VALUES (7, 2, 4, '2022-08-16 16:56:15', '2022-08-16 16:56:15');
+INSERT INTO `goods_category` VALUES (8, 2, 5, '2022-08-16 16:56:15', '2022-08-16 16:56:15');
+INSERT INTO `goods_category` VALUES (29, 3, 6, '2022-08-27 16:15:21', '2022-08-27 16:15:21');
 
 -- ----------------------------
 -- Table structure for menu
@@ -240,7 +229,7 @@ CREATE TABLE `moment`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `userId`(`userId`) USING BTREE,
   CONSTRAINT `moment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of moment
@@ -414,7 +403,7 @@ CREATE TABLE `users`  (
   INDEX `roleId`(`roleId`) USING BTREE,
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -423,6 +412,6 @@ INSERT INTO `users` VALUES (1, 'coderhxl', 'hxl', '8d969eef6ecad3c29a3a629280e68
 INSERT INTO `users` VALUES (2, '浮幻', '浮幻', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 13680677777, 1, 2, 1, 'http://localhost:9000/users/2/avatar', '2022-08-14 20:54:06', '2022-08-14 21:01:25');
 INSERT INTO `users` VALUES (3, 'admin', 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 13680666666, 1, 1, 1, NULL, '2022-08-15 13:51:17', '2022-08-15 13:51:17');
 INSERT INTO `users` VALUES (4, 'lili', '莉莉', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 13680655555, 1, 4, 2, NULL, '2022-08-15 13:51:53', '2022-08-15 14:01:58');
-INSERT INTO `users` VALUES (5, 'lihub', '李华', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 136806444444, 1, 5, 3, NULL, '2022-08-15 13:53:39', '2022-08-15 14:01:52');
+INSERT INTO `users` VALUES (5, 'lihub', '李华', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 136806444444, 0, 5, 3, NULL, '2022-08-15 13:53:39', '2022-08-27 14:46:07');
 
 SET FOREIGN_KEY_CHECKS = 1;
