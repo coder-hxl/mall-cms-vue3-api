@@ -30,6 +30,6 @@ userRouter.get('/:userId', verifyAuth, userController.detail)
 userRouter.post('/list', verifyAuth, userController.list)
 
 // 获取头像
-userRouter.get('/:userId/avatar', userController.avatarInfo)
+userRouter.get('/:userId/avatar/:filename', userController.avatarInfo)
 
 export default userRouter

@@ -19,12 +19,14 @@ const fileController: IFileController = {
     }
 
     // 3.添加图像url到用户表中
-    const avatarUrl = `${APP_HOST}:${APP_PORT}/users/${userId}/avatar`
+    const avatarUrl = `${APP_HOST}:${APP_PORT}/users/${userId}/avatar/${filename}`
     await userService.update(userId, { avatarUrl })
 
     ctx.body = {
       code: 200,
-      data: '上传头像成功~'
+      data: {
+        newAvatarUrl: avatarUrl
+      }
     }
   }
 }
