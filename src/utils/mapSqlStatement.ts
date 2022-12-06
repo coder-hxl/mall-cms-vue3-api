@@ -1,9 +1,9 @@
-interface IAnyObj {
+interface IAnyObj extends Object {
   [key: string]: any
 }
 
 const mapSqlStatement = {
-  create<T = IAnyObj>(createInfo: T) {
+  create<T extends IAnyObj>(createInfo: T) {
     const inserts = []
     const placeholders = []
     const values = Object.values(createInfo)
@@ -15,7 +15,7 @@ const mapSqlStatement = {
 
     return { inserts, placeholders, values }
   },
-  update<T = IAnyObj>(updateInfo: T) {
+  update<T extends IAnyObj>(updateInfo: T) {
     const updates = []
     const values = Object.values(updateInfo)
 
@@ -25,7 +25,7 @@ const mapSqlStatement = {
 
     return { updates, values }
   },
-  like<T = IAnyObj>(likeInfo: T, tablesName: string) {
+  like<T extends IAnyObj>(likeInfo: T, tablesName: string) {
     const likes: string[] = []
     let isFirst = true
 
