@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^4.0.0",
     "@koa/multer": "^3.0.0",
     "@koa/router": "^12.0.0",
     "dotenv": "^16.0.1",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.8",
     "@types/koa": "^2.13.5",
+    "@types/koa__cors": "^4.0.0",
     "@types/koa__multer": "^2.0.4",
     "@types/koa__router": "^8.0.11",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
