@@ -5,6 +5,7 @@ interface IForbidHandleIds {
   department: number[]
   category: number[]
   goods: number[]
+  moment: number[]
 }
 
 type forbidTableName = keyof IForbidHandleIds
@@ -19,7 +20,8 @@ const forbidHandleIds: IForbidHandleIds = {
   role: [1, 2, 3],
   department: [1, 2, 3, 4, 5],
   category: [1, 2, 3],
-  goods: [1, 2, 3]
+  goods: [1, 2, 3],
+  moment: [1, 2, 3, 6, 8, 9, 11]
 }
 
 export default forbidHandleIds

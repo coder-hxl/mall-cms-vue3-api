@@ -8,6 +8,7 @@ interface IMomentService {
     contentHtml: string,
     contentText: string
   ): Promise<ResultSetHeader>
+  delete(momentId: number | string): Promise<ResultSetHeader>
   getStoryList(like: IMoment, limit: string[]): Promise<IMoment[]>
   getStoryByAny(key: string, value: any): Promise<IMoment[]>
 }

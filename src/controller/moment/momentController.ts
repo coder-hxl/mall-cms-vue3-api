@@ -17,6 +17,16 @@ const momentController: IMomentController = {
       data: '创建故事成功~'
     }
   },
+  async delete(ctx, next) {
+    const { momentId } = ctx.params
+
+    await momentService.delete(momentId)
+
+    ctx.body = {
+      code: 200,
+      data: '删除动态成功~'
+    }
+  },
   async list(ctx, next) {
     const info = ctx.request.body
     const offset = toString(info.offset)

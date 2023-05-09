@@ -17,6 +17,13 @@ const momentService: IStoryService = {
 
     return result
   },
+  async delete(momentId) {
+    const statement = 'DELETE FROM moment WHERE id = ?;'
+
+    const [result] = await pool.execute<ResultSetHeader>(statement, [momentId])
+
+    return result
+  },
   async getStoryList(like, limit) {
     const likes = mapSqlStatement.like(like, 's')
 
