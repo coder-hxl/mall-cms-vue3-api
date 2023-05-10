@@ -25,7 +25,7 @@ const verifyLogin: IMiddleware = async (ctx, next) => {
   // 2.验证名字是否存在
   const result = await hasCUPremise('users', 'create', { name })
   if (result.isHas) {
-    const error = new Error(errorType.NAME_IS_EXISTS)
+    const error = new Error(errorType.USER_NOT_EXISTS)
     return ctx.app.emit('error', error, ctx)
   }
 
