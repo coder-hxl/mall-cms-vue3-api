@@ -1,10 +1,8 @@
 # MALL-CMS-Vue3-API
 
-MALL-CMS-Vue3-API —— 基于 NodeJS、TS 、MySQL 等技术开发的 Mall-CMS-Vue3 后台管理系统接口。采用 REST 设计风格。
+Mall-CMS-Vue3 是基于 NodeJS、TypeScript 、Koa、MySQL 等技术实现的后台管理系统 API 。拥有系统总览（核心技术、商品统计）、系统管理（用户管理、部门管理、菜单管理、角色管理）、商品中心（商品分类、商品信息）、动态（动态主页、动态列表）的 API 。采用 REST 设计风格。
 
-如果对您有帮助可以点个 Star 支持一下。
-
-有任何问题可以在 [MALL-CMS-Vue3-API](https://github.com/coder-hxl/mall-cms-vue3-api/issues) 中提 Issues 。
+> 如果对您有帮助，可以给 [MALL-CMS-Vue3-API 存储库](https://github.com/coder-hxl/mall-cms-vue3-api) 点个 star 支持一下！
 
 ## API 文档
 
